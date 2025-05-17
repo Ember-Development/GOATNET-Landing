@@ -1,18 +1,18 @@
 // src/components/Members.tsx
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, PlayCircle, X } from "lucide-react";
 
 // Image imports
-import dinnImg from "../assets/images/dinn.PNG";
-import darnImg from "../assets/images/darn.PNG";
-import dustyImg from "../assets/images/dusty.PNG";
-import jenImg from "../assets/images/jen.PNG";
-import kevinImg from "../assets/images/Kevin.PNG";
-import adamImg from "../assets/images/Adam.PNG";
-import annieImg from "../assets/images/Annie.PNG";
-import dillionImg from "../assets/images/Dillion.PNG";
-import lexieImg from "../assets/images/Lexie.PNG";
+import dinnImg from "../assets/images/dinn.png";
+import darnImg from "../assets/images/darn.png";
+import dustyImg from "../assets/images/dusty.png";
+import jenImg from "../assets/images/jen.png";
+import kevinImg from "../assets/images/kevin.png";
+import adamImg from "../assets/images/adam.png";
+import annieImg from "../assets/images/annie.png";
+import dillionImg from "../assets/images/dillion.png";
+import lexieImg from "../assets/images/lexie.png";
 import HBCU from "../assets/images/hbcu.png";
 
 type Member = {

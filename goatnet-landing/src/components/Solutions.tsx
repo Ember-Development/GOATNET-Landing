@@ -193,7 +193,7 @@ export default function Solutions() {
           animate="show"
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {contentList.map(({ title, desc, icon }, idx) => (
+          {contentList.map(({ title, desc, icon }) => (
             <motion.div
               key={title}
               variants={itemVar}

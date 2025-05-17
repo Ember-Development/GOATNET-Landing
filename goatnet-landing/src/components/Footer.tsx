@@ -1,6 +1,6 @@
 // src/components/Footer.tsx
 import { FaDiscord, FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa";
-import Goat from "../assets/images/Goat.png";
+import Goat from "../assets/images/goat.png";
 
 const Footer = () => (
   <footer className="bg-black text-gray-400 border-t border-gray-700">

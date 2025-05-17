@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import Goat from "../assets/images/Goat.png";
+import Goat from "../assets/images/goat.png";
 
 const NAV_ITEMS = [
   { id: "about", label: "About" },
