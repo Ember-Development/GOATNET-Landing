@@ -1,4 +1,4 @@
-import { useState, type JSX } from "react";
+import { useRef, useState, type JSX } from "react";
 import { motion } from "framer-motion";
 import { PlayCircle, Zap, ShoppingBag, Users } from "lucide-react";
 import GoatNet from "../assets/images/goatnet.jpeg";
@@ -12,77 +12,77 @@ const solutionsData: Record<
 > = {
   Storytelling: [
     {
-      title: "Watch Originals",
-      desc: "Discover series, shorts, and films made to inspire.",
+      title: "Social",
+      desc: "Link existing accounts, distribute Goatnet posts whenever desired & own your catalog",
       icon: <PlayCircle className="w-6 h-6 text-white" />,
     },
     {
-      title: "Fuel Future Greatness",
-      desc: "Your support powers grassroots stories, training, and breakthrough moments.",
+      title: "Narrative",
+      desc: "You’re the interviewee, assets are gathered, Your network forms & grows as you choose",
       icon: <Zap className="w-6 h-6 text-white" />,
     },
     {
-      title: "Shop Merch",
-      desc: "Rep athletes, teams, and stories that inspire you.",
+      title: "Studio",
+      desc: "Feature content in varied forms, direct edits, keep creative control",
       icon: <ShoppingBag className="w-6 h-6 text-white" />,
     },
     {
-      title: "Join the Community",
-      desc: "Go beyond fandom. Share stories, fuel futures, and be part of something that matters.",
+      title: "Newsletter",
+      desc: "Opted-in correspondence, from individuals or groups",
       icon: <Users className="w-6 h-6 text-white" />,
+    },
+    {
+      title: "Intellectual Property",
+      desc: "Consume, make or appear in: Podcasts, documentaries, series, films, publications",
+      icon: <PlayCircle className="w-6 h-6 text-white" />,
     },
   ],
   Innovation: [
     {
-      title: "Tech Stack Management",
-      desc: "From CMS to hosting, we manage your entire digital infrastructure.",
+      title: "Command Post",
+      desc: "Profiles are passé. We provide a Credential, a dashboard & overview that’s purposeful & dynamic",
       icon: <Zap className="w-6 h-6 text-white" />,
     },
     {
-      title: "Website Creation & Updates",
-      desc: "Design, build, and maintain custom websites from scratch or refresh.",
+      title: "A.I. & Creator Tools",
+      desc: "Thoughtful A.I. integrations, production array showcases attributes, highlights AND interests",
       icon: <PlayCircle className="w-6 h-6 text-white" />,
     },
     {
-      title: "Analytics & Insights",
-      desc: "Audit your site to identify key improvements and performance boosts.",
+      title: "Tech Stack",
+      desc: "Adaptive infrastructure for vital details & functionality",
       icon: <Users className="w-6 h-6 text-white" />,
     },
     {
-      title: "Centralized Content Platform",
-      desc: "Branded CMS to organize, manage, and distribute media across channels.",
+      title: "Websites & Maintenance",
+      desc: "Custom-site development? Great! We build, QA & update",
       icon: <PlayCircle className="w-6 h-6 text-white" />,
-    },
-    {
-      title: "Tech Consultation & Support",
-      desc: "Strategize and build your future‑proof digital presence with expert guidance.",
-      icon: <Users className="w-6 h-6 text-white" />,
     },
   ],
   Community: [
     {
-      title: "Athlete & Brand Development",
-      desc: "Build identity, voice, and visibility through narrative.",
+      title: "Activations",
+      desc: "Camps, fundraisers, competitions, premieres: Experience the upside of Goatnet-infused events",
       icon: <Users className="w-6 h-6 text-white" />,
     },
     {
-      title: "Digital Command Post",
-      desc: "A central platform for publishing content across channels.",
+      title: "Pipeline",
+      desc: "Authentic onboarding & metadata connect dots, accentuating kinship, impact & brand appreciation ",
       icon: <Zap className="w-6 h-6 text-white" />,
     },
     {
-      title: "Original Content",
-      desc: "Short and long‑form video tailored to your audience.",
+      title: "Commerce",
+      desc: "Create, sell or buy: Get paid & get deals!",
       icon: <PlayCircle className="w-6 h-6 text-white" />,
     },
     {
-      title: "Community & Event Coverage",
-      desc: "From live events to grassroots activations, share moments that support growth.",
+      title: "Empowerment",
+      desc: "Influence in action: Promote giving back",
       icon: <Users className="w-6 h-6 text-white" />,
     },
     {
-      title: "Sponsor & Donor Outreach",
-      desc: "Strategic outreach designed to attract partners, new revenue, and business community allies.",
+      title: "Gatekeeper",
+      desc: "G-List is how we roll: Hard pass, bots & trolls",
       icon: <ShoppingBag className="w-6 h-6 text-white" />,
     },
   ],
@@ -101,9 +101,14 @@ const itemVar = {
 export default function Solutions() {
   const [activeTab, setActiveTab] = useState<Tab>("Storytelling");
   const contentList = solutionsData[activeTab] || [];
+  const ref = useRef<HTMLElement>(null);
 
   return (
-    <section className="relative bg-gradient-to-b from-black via-black/90 to-black py-16 overflow-hidden">
+    <section
+      id="solutions"
+      ref={ref}
+      className="relative bg-gradient-to-b from-black via-black/90 to-black py-16 overflow-hidden"
+    >
       {/* Decorative background image, full height on the right */}
       <img
         src={GoatNet}
@@ -122,7 +127,8 @@ export default function Solutions() {
         >
           Why GOATNET?{" "}
           <span className="font-normal font-['Inter',sans-serif] text-gray-300">
-            What we offer you.
+            Storytelling is your greatest marketing, Expensive & slow isn’t for
+            everyone.
           </span>
         </motion.h2>
 
@@ -178,11 +184,11 @@ export default function Solutions() {
         {/* Subtitle */}
         <p className="text-gray-300 font-['Inter',sans-serif] mb-6 max-w-dvw leading-relaxed">
           {activeTab === "Storytelling" &&
-            "Goatnet isn’t just for teams and creators—it’s a destination for fans who believe in something bigger. Watch original films and athlete-driven content that capture the pursuit of greatness. Support rising voices and community programs. Shop exclusive merch that helps fund athletes and grassroots programs. And connect with others who are building greatness from the ground up."}
+            "Share your why & celebrate others like never before. Set the tone, timeless and relevant, on your journey"}
           {activeTab === "Innovation" &&
-            "We go beyond content—we manage the full tech stack that powers it. From building and updating websites to giving you a custom platform  distribution, we centralize your media, simplify workflows, and deliver full-spectrum analytics. Whether you're launching a campaign or leveling up your entire digital footprint, we help you move fast, look sharp, and stay ahead."}
+            "Your online presence should impress. As tech evolves, advancing with it is essential"}
           {activeTab === "Community" &&
-            "We co-create highlight reels, branded spots, mini-docs, and athlete-driven narratives—partnering with teams, creators, and brands from concept and storyboarding through production and post. By weaving authentic athlete interviews, dynamic B-roll, we deliver content that recruits talent, inspires fans, and performs across every platform tailored to your mission."}
+            "This is a filtered place, located above the noise. Point is, prioritize greatness & do so considerately "}
         </p>
 
         {/* Glassmorphic Cards Grid */}

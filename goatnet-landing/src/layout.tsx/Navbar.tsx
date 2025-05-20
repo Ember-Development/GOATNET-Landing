@@ -1,7 +1,9 @@
+// src/layout.tsx/Navbar.tsx
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Goat from "../assets/images/goat.png";
+import ScrollCTA from "../components/ui/scrollCTA";
 
 const NAV_ITEMS = [
   { id: "about", label: "About" },
@@ -11,7 +13,11 @@ const NAV_ITEMS = [
   { id: "contact", label: "Contact" },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  onOpenModal: () => void;
+}
+
+export default function Navbar({ onOpenModal }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [show, setShow] = useState(true);
@@ -19,14 +25,14 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("");
   const lastScrollY = useRef(0);
 
-  // 1) Hide‑on‑scroll & shrink on scroll + progress bar
   useEffect(() => {
     const handleScroll = () => {
       const y = window.scrollY;
-      setScrolled(y > 50);
-      setShow(y < lastScrollY.current || y < 100);
+      const isScrolled = y > 50;
+      const isShowing = y < lastScrollY.current || y < 100;
+      setScrolled(isScrolled);
+      setShow(isShowing);
       lastScrollY.current = y;
-
       const total = document.body.scrollHeight - window.innerHeight;
       setProgress(total > 0 ? (y / total) * 100 : 0);
     };
@@ -34,7 +40,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // 2) Scroll‑spy with IntersectionObserver for underline
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
     NAV_ITEMS.forEach(({ id }) => {
@@ -65,7 +70,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Gradient scroll‐progress bar */}
+      {/* Progress Bar */}
       <div className="fixed top-0 left-0 h-1 w-full z-50">
         <div
           className="h-full bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500"
@@ -73,18 +78,17 @@ export default function Navbar() {
         />
       </div>
 
+      {/* Navbar */}
       <header
         className={`
-          fixed top-0 w-full z-50 bg-black/60 backdrop-blur-md
+          fixed top-0 w-full z-50 bg-black/70 backdrop-blur-md
           transform transition-all duration-300
           ${scrolled ? "py-2" : "py-4"}
           ${show ? "translate-y-0" : "-translate-y-full"}
         `}
       >
-        <div className="max-w-screen mx-[4rem] flex items-center justify-between relative">
-          {/* Logo + Desktop Nav */}
+        <div className="max-w-screen mx-[4rem] flex items-center justify-between">
           <div className="flex items-center gap-10">
-            {/* 4) Logo reveal + micro‑interaction */}
             <motion.img
               src={Goat}
               alt="GOATNET Logo"
@@ -94,7 +98,6 @@ export default function Navbar() {
               transition={{ type: "spring", stiffness: 120, damping: 12 }}
               whileHover={{ scale: 1.1, rotate: 5 }}
             />
-
             <nav className="hidden md:flex gap-6 font-medium text-sm">
               {NAV_ITEMS.map(({ id, label }) => (
                 <motion.button
@@ -104,18 +107,13 @@ export default function Navbar() {
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 250, damping: 20 }}
                 >
-                  {/* Base text-white, then purple on hover */}
-                  <span className="text-white transition-colors duration-200 group-hover:text-purple-400">
+                  <span className="text-white group-hover:text-purple-400 transition">
                     {label}
                   </span>
-
-                  {/* Scroll‑spy underline */}
                   <motion.span
                     layoutId="underline"
                     className="absolute bottom-0 left-0 h-0.5 bg-purple-400"
-                    style={{
-                      width: activeSection === id ? "100%" : "0",
-                    }}
+                    style={{ width: activeSection === id ? "100%" : "0" }}
                     transition={{ duration: 0.3 }}
                   />
                 </motion.button>
@@ -123,38 +121,35 @@ export default function Navbar() {
             </nav>
           </div>
 
-          {/* Join Waitlist (desktop) */}
+          {/* Join Waitlist */}
           <div className="hidden md:block">
             <div className="relative ml-3 group">
               <div
-                className="absolute inset-0 z-0 rounded-full blur-[5px] opacity-80 group-hover:opacity-100 transition"
+                className="absolute inset-0 rounded-full blur-[5px] opacity-80 group-hover:opacity-100 transition"
                 style={{
                   backgroundImage:
                     "radial-gradient(circle at 0 0, #00bdf3, #2b66bc 24%, #2b45a3 51%, #6928c5 74%, #9200cb)",
                 }}
               />
               <button
-                type="submit"
-                className="relative z-10 px-6 py-2 rounded-full text-white font-bold italic uppercase text-sm leading-none bg-[#0b0a0b] transition-transform group-hover:scale-105"
+                onClick={onOpenModal}
+                className="relative z-10 px-6 py-2 rounded-full text-white font-bold italic uppercase text-sm bg-[#0b0a0b] transition-transform group-hover:scale-105"
                 style={{
                   backgroundImage:
                     "radial-gradient(circle at 0 0, #00bdf3, #2b66bc 24%, #2b45a3 51%, #6928c5 74%, #9200cb)",
-                  backgroundClip: "padding-box",
                 }}
-                onClick={() => scrollToSection("waitlist")}
               >
                 Join Waitlist
               </button>
             </div>
           </div>
 
-          {/* Mobile toggle with ripple */}
+          {/* Mobile Toggle */}
           <motion.button
             onClick={toggleMenu}
-            className="md:hidden text-white relative overflow-hidden p-2"
+            className="md:hidden text-white p-2 relative overflow-hidden"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
-            {/* 7) Ripple effect */}
             <motion.span
               className="absolute inset-0 bg-white opacity-20 rounded-full"
               initial={{ scale: 0 }}
@@ -164,16 +159,12 @@ export default function Navbar() {
           </motion.button>
         </div>
 
-        {/* 6) Liquid wave SVG at bottom of navbar */}
-        <svg
-          className="absolute bottom-0 w-full h-6"
-          viewBox="0 0 1440 320"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        {/* Liquid Wave */}
+        <svg className="absolute bottom-0 w-full h-6" viewBox="0 0 1440 320">
           <path
             fill="#000"
             fillOpacity="0.6"
-            d="M0,96L80,106.7C160,117,320,139,480,128C640,117,800,75,960,80C1120,85,1280,139,1360,165.3L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
+            d="M0,96L80,106.7C160,117,320,139,...Z"
           />
         </svg>
 
@@ -191,14 +182,20 @@ export default function Navbar() {
               </button>
             ))}
             <button
-              onClick={() => scrollToSection("waitlist")}
-              className="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition transform hover:scale-105 hover:shadow-[0_0_10px_rgba(147,51,234,0.7)]"
+              onClick={() => {
+                onOpenModal();
+                setIsOpen(false);
+              }}
+              className="bg-purple-600 hover:bg-purple-700 px-5 py-2 rounded-full text-sm"
             >
               Join Waitlist
             </button>
           </motion.nav>
         )}
       </header>
+
+      {/* Scroll CTA */}
+      {!show && scrolled && <ScrollCTA />}
     </>
   );
 }

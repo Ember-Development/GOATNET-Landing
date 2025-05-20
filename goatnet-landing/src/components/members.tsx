@@ -102,6 +102,7 @@ export default function Members() {
   const tabs = ["People", "Organizations"] as const;
   type Tab = (typeof tabs)[number];
   const [activeTab, setActiveTab] = useState<Tab>("People");
+  const ref = useRef<HTMLElement>(null);
 
   // People carousel refs & state
   const containerRef = useRef<HTMLDivElement>(null);
@@ -142,7 +143,11 @@ export default function Members() {
   };
 
   return (
-    <section className="relative bg-black py-14 overflow-hidden">
+    <section
+      id="community"
+      ref={ref}
+      className="relative bg-black py-14 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-6">
         {/* Heading */}
         <motion.div variants={item} className="mb-6">

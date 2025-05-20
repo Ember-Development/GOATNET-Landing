@@ -4,6 +4,7 @@ import { BookOpen, Users, Zap } from "lucide-react";
 import Marshall from "../assets/images/marshall.jpg";
 import Virginia from "../assets/images/virginia.jpg";
 import Harvery from "../assets/images/harvery.jpg";
+import { Link } from "react-router-dom";
 
 // Staggered container + items
 const container = {
@@ -162,26 +163,28 @@ export default function About() {
 
             {/* Learn More button */}
             <motion.div variants={item} className="mt-8">
-              <motion.button
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  delay: 0.5,
-                  duration: 0.5,
-                  type: "spring",
-                  stiffness: 300,
-                }}
-                className="group relative inline-flex items-center px-8 py-2 font-semibold font-['Inter',sans-serif] text-sm uppercase tracking-wide text-white rounded-full bg-transparent border border-gray-500 transition hover:border-white hover:bg-white/10 focus:outline-none focus:ring-4 focus:ring-purple-600/40"
-              >
-                Learn More
-                <span
-                  className="absolute inset-0 rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity"
-                  style={{
-                    background:
-                      "radial-gradient(circle at center, rgba(147,51,234,0.6), transparent 70%)",
+              <Link to="/about" className="inline-block">
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    delay: 0.5,
+                    duration: 0.5,
+                    type: "spring",
+                    stiffness: 300,
                   }}
-                />
-              </motion.button>
+                  className="group relative inline-flex items-center px-8 py-2 font-semibold font-['Inter',sans-serif] text-sm uppercase tracking-wide text-white rounded-full bg-transparent border border-gray-500 transition hover:border-white hover:bg-white/10 focus:outline-none focus:ring-4 focus:ring-purple-600/40"
+                >
+                  Learn More
+                  <span
+                    className="absolute inset-0 rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity"
+                    style={{
+                      background:
+                        "radial-gradient(circle at center, rgba(147,51,234,0.6), transparent 70%)",
+                    }}
+                  />
+                </motion.button>
+              </Link>
             </motion.div>
           </motion.div>
         </div>
@@ -199,7 +202,7 @@ export default function About() {
               animate="enter"
               exit="exit"
               transition={{ duration: 1.2, ease: "easeInOut" }}
-              className="block w-full bg-gray-800 rounded-xl overflow-hidden shadow-lg cursor-pointer relative"
+              className="block w-full rounded-xl overflow-hidden shadow-lg cursor-pointer relative"
               onMouseEnter={() => setPaused(true)}
               onMouseLeave={() => setPaused(false)}
             >

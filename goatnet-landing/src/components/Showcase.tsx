@@ -106,6 +106,7 @@ function CarouselItem({ item }: { item: Item }) {
 
 export default function Showcase() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
 
   const scroll = (dir: "left" | "right") => {
     const c = containerRef.current;
@@ -115,7 +116,11 @@ export default function Showcase() {
   };
 
   return (
-    <section className="relative bg-black py-16 overflow-hidden">
+    <section
+      id="showcase"
+      ref={ref}
+      className="relative bg-black py-16 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-3xl font-bold text-white font-['Inter',sans-serif] mb-2">
           Discover Greatness
