@@ -151,7 +151,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
             <motion.span
-              className="absolute inset-0 bg-white opacity-20 rounded-full"
+              className="absolute inset-0 opacity-20 rounded-full"
               initial={{ scale: 0 }}
               animate={{ scale: 1, opacity: 0 }}
               transition={{ duration: 0.5 }}
