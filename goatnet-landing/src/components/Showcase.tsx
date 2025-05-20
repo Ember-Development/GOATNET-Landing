@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, PlayCircle } from "lucide-react";
 
 // Helper to extract YouTube ID
 function getYouTubeID(url: string) {
@@ -59,29 +59,65 @@ const items: Item[] = [
   },
 ];
 
+const containerVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
+const titleVariants = {
+  hidden: { opacity: 0, y: -20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 200, delay: 0.1 },
+  },
+};
+
+const descVariants = {
+  hidden: { opacity: 0, y: -10 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 200, delay: 0.3 },
+  },
+};
+
 function CarouselItem({ item }: { item: Item }) {
   const [playing, setPlaying] = useState(false);
   const videoId = getYouTubeID(item.video);
 
   return (
     <motion.a
+      variants={itemVariants}
       href={item.link}
       target="_blank"
       rel="noopener noreferrer"
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-      }}
-      className="relative min-w-[200px] md:min-w-[240px] lg:min-w-[280px] snap-start overflow-hidden rounded-lg shadow-lg group"
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 300 }}
+      className="relative min-w-[200px] md:min-w-[280px] lg:min-w-[320px] xl:min-w-[360px] snap-center overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 group"
       onMouseEnter={() => setPlaying(true)}
       onMouseLeave={() => setPlaying(false)}
     >
+      {/* Image */}
       <img
         src={item.image}
         alt={item.title}
-        className="w-full h-40 object-cover"
+        className="w-full h-40 md:h-56 lg:h-64 object-cover"
       />
 
+      {/* Play icon overlay */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="p-3 rounded-full bg-black/50 group-hover:scale-110 transition-transform duration-300">
+          <PlayCircle className="w-12 h-12 text-white animate-pulse" />
+        </div>
+      </div>
+
+      {/* Video iframe on hover */}
       {videoId && (
         <iframe
           className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -93,12 +129,17 @@ function CarouselItem({ item }: { item: Item }) {
         />
       )}
 
-      <div className="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <div className="relative inline-block px-3 py-1 rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 bg-opacity-30 backdrop-blur-lg border border-purple-400 shadow-lg overflow-hidden">
-          <span className="text-white font-bold text-sm font-['Inter',sans-serif] drop-shadow-lg">
-            {item.title}
-          </span>
-        </div>
+      {/* Slick gradient title */}
+      <div className="hidden md:block mt-4 text-center">
+        <motion.span
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+          className="relative inline-block bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent uppercase tracking-wider font-semibold text-base lg:text-lg"
+        >
+          {item.title}
+          <span className="absolute left-0 bottom-[-2px] h-[2px] w-full bg-white scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100" />
+        </motion.span>
       </div>
     </motion.a>
   );
@@ -122,43 +163,54 @@ export default function Showcase() {
       className="relative bg-black py-16 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-white font-['Inter',sans-serif] mb-2">
+        {/* Section header animations */}
+        <motion.h2
+          variants={titleVariants}
+          initial="hidden"
+          animate="show"
+          className="text-3xl font-bold text-white font-['Inter',sans-serif] mb-2"
+        >
           Discover Greatness
-        </h2>
-        <p className="text-gray-400 font-['Inter',sans-serif] mb-8">
+        </motion.h2>
+        <motion.p
+          variants={descVariants}
+          initial="hidden"
+          animate="show"
+          className="text-gray-400 font-['Inter',sans-serif] mb-8"
+        >
           A taste of what's waiting inside.
-        </p>
+        </motion.p>
 
         <div className="relative">
+          {/* Nav buttons */}
           <button
             onClick={() => scroll("left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 rounded-full hover:bg-black/70 transition"
+            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 p-3 md:p-4 bg-black/60 rounded-full hover:bg-black/80 transition"
           >
-            <ChevronLeft className="w-6 h-6 text-white" />
+            <ChevronLeft className="w-6 md:w-8 h-6 md:h-8 text-white" />
           </button>
           <button
             onClick={() => scroll("right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 rounded-full hover:bg-black/70 transition"
+            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 p-3 md:p-4 bg-black/60 rounded-full hover:bg-black/80 transition"
           >
-            <ChevronRight className="w-6 h-6 text-white" />
+            <ChevronRight className="w-6 md:w-8 h-6 md:h-8 text-white" />
           </button>
 
+          {/* Carousel container */}
           <motion.div
             ref={containerRef}
-            className="flex space-x-4 overflow-x-auto scroll-hide snap-x snap-mandatory"
-            style={{
-              msOverflowStyle: "none",
-              scrollbarWidth: "none",
-            }}
-            variants={{
-              hidden: {},
-              show: { transition: { staggerChildren: 0.1 } },
-            }}
+            className="flex space-x-4 overflow-x-hidden scroll-hide snap-x snap-mandatory"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            whileTap={{ cursor: "grabbing" }}
+            variants={containerVariants}
             initial="hidden"
             animate="show"
+            style={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
           >
-            {items.map((item) => (
-              <CarouselItem key={item.id} item={item} />
+            {[...items, ...items].map((item, idx) => (
+              <CarouselItem key={`${item.id}-${idx}`} item={item} />
             ))}
           </motion.div>
         </div>

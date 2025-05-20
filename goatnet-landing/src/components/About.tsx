@@ -3,15 +3,13 @@ import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { BookOpen, Users, Zap } from "lucide-react";
 import Marshall from "../assets/images/marshall.jpg";
 import Virginia from "../assets/images/virginia.jpg";
-import Harvery from "../assets/images/harvery.jpg";
+import Harvery from "../assets/images/harvery.webp";
 import { Link } from "react-router-dom";
 
-// Staggered container + items
+// Staggered container + items (only animates children)
 const container = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: {},
   show: {
-    opacity: 1,
-    y: 0,
     transition: {
       when: "beforeChildren",
       staggerChildren: 0.2,
@@ -54,7 +52,7 @@ export default function About() {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
-  // Observe section visibility once
+  // Observe visibility once
   useEffect(() => {
     if (!ref.current) return;
     const obs = new IntersectionObserver(
@@ -88,18 +86,17 @@ export default function About() {
   };
 
   return (
-    <motion.section
-      id="about"
-      ref={ref}
-      initial="hidden"
-      animate={controls}
-      variants={container}
-      className="relative bg-black overflow-hidden"
-    >
+    <section id="about" ref={ref} className="relative bg-black overflow-hidden">
       {/* subtle gradient background */}
       <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-black pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-8 py-20 grid md:grid-cols-2 gap-y-12 gap-x-28 items-center">
+      {/* motion wrapper for content only */}
+      <motion.div
+        className="relative max-w-7xl mx-auto px-8 py-2 md:py-20 grid md:grid-cols-2 gap-y-12 gap-x-28 items-center"
+        initial="hidden"
+        animate={controls}
+        variants={container}
+      >
         {/* Left side: copy + bullets */}
         <div>
           <motion.div variants={item} className="mb-6">
@@ -119,22 +116,27 @@ export default function About() {
             variants={item}
             className="text-gray-400 font-['Inter',sans-serif] mb-6"
           >
-            Sports content has always revolved around the scoreboard — but what
-            if the real magic is found between the whistles?
+            Rooted in storytelling, we exist to provide value for organizations
+            and individuals in the pursuit of greatness. Goatnet is a media and
+            technology solution for production, distribution, and community
+            engagement. We focus on content that drives results.
           </motion.p>
           <motion.p
             variants={item}
             className="text-gray-400 font-['Inter',sans-serif] mb-8"
           >
-            While traditional networks chase highlights and live games, we shine
-            a light on the human stories behind the hustle — the late nights,
-            the self‑doubt, the breakthrough moments.
+            We provide scalable social and streaming solutions with A.I.
+            production advantages, creator tools, integrated agency services and
+            flexible distribution. We serve three targeted groups: Aspiring,
+            trending and legacy greats and those who support them. Everything we
+            do is collaborative, providing opportunities for your social media
+            and marketing teams to thrive.
           </motion.p>
           <motion.p
             variants={item}
             className="text-gray-400 font-['Inter',sans-serif] mb-12"
           >
-            Greatness itself is the genre.
+            Join the family.
           </motion.p>
 
           {/* Icon‑led bullets */}
@@ -145,19 +147,19 @@ export default function About() {
             <div className="flex items-center gap-3">
               <BookOpen className="w-6 h-6 text-purple-500" />
               <span className="text-white font-['Inter',sans-serif] font-medium">
-                Stories That Inspire
+                Stories That Inspire.
               </span>
             </div>
             <div className="flex items-center gap-3">
               <Users className="w-6 h-6 text-purple-500" />
               <span className="text-white font-['Inter',sans-serif] font-medium">
-                Coaches & Creators
+                Organizations & Creators.
               </span>
             </div>
             <div className="flex items-center gap-3">
               <Zap className="w-6 h-6 text-purple-500" />
               <span className="text-white font-['Inter',sans-serif] font-medium">
-                Breakthrough Moments
+                Breakthrough Moments.
               </span>
             </div>
 
@@ -223,7 +225,7 @@ export default function About() {
             </motion.a>
           </AnimatePresence>
         </div>
-      </div>
+      </motion.div>
 
       {/* decorative wave divider */}
       <div className="w-full overflow-hidden leading-none">
@@ -235,6 +237,6 @@ export default function About() {
           />
         </svg>
       </div>
-    </motion.section>
+    </section>
   );
 }

@@ -15,7 +15,7 @@ export default function CallToAction({ onOpenModal }: CallToActionProps) {
     <section
       id="contact"
       ref={ref}
-      className="relative bg-black py-20 overflow-hidden"
+      className="relative bg-black py-10 overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-black pointer-events-none" />
 

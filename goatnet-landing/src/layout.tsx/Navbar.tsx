@@ -87,7 +87,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
           ${show ? "translate-y-0" : "-translate-y-full"}
         `}
       >
-        <div className="max-w-screen mx-[4rem] flex items-center justify-between">
+        <div className="max-w-screen mx-[2rem] md:mx-[4rem] flex items-center justify-between">
           <div className="flex items-center gap-10">
             <motion.img
               src={Goat}
@@ -174,7 +174,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden mt-4 flex flex-col gap-4 text-white font-medium"
+            className="md:hidden mt-4 flex flex-col gap-4 text-white font-['Inter',sans-serif] font-medium"
           >
             {NAV_ITEMS.map(({ id, label }) => (
               <button key={id} onClick={() => scrollToSection(id)}>
@@ -186,7 +186,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
                 onOpenModal();
                 setIsOpen(false);
               }}
-              className="bg-purple-600 hover:bg-purple-700 px-5 py-2 rounded-full text-sm"
+              className="bg-purple-600 hover:bg-purple-700 px-5 py-2 font-['Inter',sans-serif] rounded-full text-sm"
             >
               Join Waitlist
             </button>

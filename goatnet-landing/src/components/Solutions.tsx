@@ -13,27 +13,27 @@ const solutionsData: Record<
   Storytelling: [
     {
       title: "Social",
-      desc: "Link existing accounts, distribute Goatnet posts whenever desired & own your catalog",
+      desc: "Link existing accounts, distribute Goatnet posts whenever desired & own your catalog.",
       icon: <PlayCircle className="w-6 h-6 text-white" />,
     },
     {
       title: "Narrative",
-      desc: "You’re the interviewee, assets are gathered, Your network forms & grows as you choose",
+      desc: "You’re the interviewee, assets are gathered, Your network forms & grows as you choose.",
       icon: <Zap className="w-6 h-6 text-white" />,
     },
     {
       title: "Studio",
-      desc: "Feature content in varied forms, direct edits, keep creative control",
+      desc: "Feature content in varied forms, direct edits, keep creative control.",
       icon: <ShoppingBag className="w-6 h-6 text-white" />,
     },
     {
       title: "Newsletter",
-      desc: "Opted-in correspondence, from individuals or groups",
+      desc: "Opted-in correspondence, from individuals or groups.",
       icon: <Users className="w-6 h-6 text-white" />,
     },
     {
       title: "Intellectual Property",
-      desc: "Consume, make or appear in: Podcasts, documentaries, series, films, publications",
+      desc: "Consume, make or appear in: Podcasts, documentaries, series, films, publications.",
       icon: <PlayCircle className="w-6 h-6 text-white" />,
     },
   ],
@@ -112,7 +112,7 @@ export default function Solutions() {
       {/* Decorative background image, full height on the right */}
       <img
         src={GoatNet}
-        alt=""
+        alt="Goat in the middle"
         className="absolute top-0 right-0 h-full w-full object-cover opacity-40 pointer-events-none"
       />
 
