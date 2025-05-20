@@ -110,7 +110,7 @@ export default function About() {
             variants={item}
             className="text-gray-300 font-['Inter',sans-serif] mb-4"
           >
-            GOATNET was born from a bold realization:
+            GOATNET Your go-to advantage in the new media game
           </motion.p>
           <motion.p
             variants={item}
@@ -119,24 +119,24 @@ export default function About() {
             Rooted in storytelling, we exist to provide value for organizations
             and individuals in the pursuit of greatness. Goatnet is a media and
             technology solution for production, distribution, and community
-            engagement. We focus on content that drives results.
+            engagement. We focus on narratives and assets that drive results.
           </motion.p>
           <motion.p
             variants={item}
             className="text-gray-400 font-['Inter',sans-serif] mb-8"
           >
-            We provide scalable social and streaming solutions with A.I.
+            Goatnet provides scalable social and streaming solutions with A.I.
             production advantages, creator tools, integrated agency services and
             flexible distribution. We serve three targeted groups: Aspiring,
             trending and legacy greats and those who support them. Everything we
-            do is collaborative, providing opportunities for your social media
-            and marketing teams to thrive.
+            do is collaborative, providing opportunities for your social media,
+            marketing efforts and attractions to thrive.
           </motion.p>
           <motion.p
             variants={item}
             className="text-gray-400 font-['Inter',sans-serif] mb-12"
           >
-            Join the family.
+            Join the family. Let’s Goat!
           </motion.p>
 
           {/* Icon‑led bullets */}
