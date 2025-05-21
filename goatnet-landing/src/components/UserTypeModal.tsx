@@ -19,7 +19,7 @@ const modalVariants = {
 };
 
 export type UserInfo = {
-  userType: "creator" | "organization" | "observer";
+  userType: " a individual" | "an organization" | "a supporter";
   name: string;
   email: string;
   organization?: string;
@@ -37,7 +37,7 @@ export default function UserTypeModal({
 }) {
   const [step, setStep] = useState(0);
   const [data, setData] = useState<UserInfo>({
-    userType: "observer",
+    userType: "a supporter",
     name: "",
     email: "",
     newsletter: false,
@@ -52,21 +52,23 @@ export default function UserTypeModal({
   const steps = [
     /* 0: select type */
     <div className="space-y-4 text-center px-6">
-      <h2 className="text-2xl font-bold text-white">I am a…</h2>
+      <h2 className="text-2xl font-bold text-white">I am…</h2>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {(["creator", "organization", "observer"] as const).map((t) => (
-          <button
-            key={t}
-            onClick={() => change("userType", t)}
-            className={`px-4 py-3 rounded-lg border-2 text-white transition ${
-              data.userType === t
-                ? "border-purple-500 bg-purple-500/20"
-                : "border-white/20 hover:border-purple-400"
-            }`}
-          >
-            {t.charAt(0).toUpperCase() + t.slice(1)}
-          </button>
-        ))}
+        {([" a individual", "an organization", "a supporter"] as const).map(
+          (t) => (
+            <button
+              key={t}
+              onClick={() => change("userType", t)}
+              className={`px-4 py-3 rounded-lg border-2 text-white transition ${
+                data.userType === t
+                  ? "border-purple-500 bg-purple-500/20"
+                  : "border-white/20 hover:border-purple-400"
+              }`}
+            >
+              {t.charAt(0).toUpperCase() + t.slice(1)}
+            </button>
+          )
+        )}
       </div>
       <button
         onClick={next}
@@ -88,7 +90,7 @@ export default function UserTypeModal({
         onChange={(e) => change("name", e.target.value)}
         className="w-full px-4 py-2 bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-lg backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
       />
-      {data.userType === "organization" && (
+      {data.userType === "an organization" && (
         <input
           type="text"
           placeholder="Organization Name"
@@ -147,7 +149,7 @@ export default function UserTypeModal({
           onClose();
           setStep(0);
           setData({
-            userType: "observer",
+            userType: "a supporter",
             name: "",
             email: "",
             newsletter: false,

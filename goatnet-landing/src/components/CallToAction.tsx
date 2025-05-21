@@ -1,8 +1,5 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
-
-const MotionLink = motion(Link);
 
 interface CallToActionProps {
   onOpenModal: () => void;
