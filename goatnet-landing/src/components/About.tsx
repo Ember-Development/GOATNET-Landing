@@ -1,58 +1,34 @@
-import { useRef, useEffect, useState } from "react";
-import { motion, useAnimation, AnimatePresence } from "framer-motion";
-import { BookOpen, Users, Zap } from "lucide-react";
-import Marshall from "../assets/images/marshall.jpg";
-import Virginia from "../assets/images/virginia.jpg";
-import Harvery from "../assets/images/harvery.webp";
+import { useRef, useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
 import { Link } from "react-router-dom";
 
-// Staggered container + items (only animates children)
-const container = {
+// Helper to extract YouTube ID
+function getYouTubeID(url: string) {
+  const match = url.match(/(?:v=|youtu\.be\/)([^&]+)/);
+  return match ? match[1] : undefined;
+}
+
+// Showcase story for video embed
+const story = {
+  link: "https://www.youtube.com/watch?v=AitwYmf8g7s&t=5s",
+};
+
+// Animation variants
+const containerVariants = {
   hidden: {},
   show: {
-    transition: {
-      when: "beforeChildren",
-      staggerChildren: 0.2,
-      duration: 0.6,
-      ease: "easeOut",
-    },
+    transition: { when: "beforeChildren", staggerChildren: 0.2 },
   },
 };
-const item = {
+const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-// Showcase projects
-const stories = [
-  {
-    image: Marshall,
-    title: "Utah Marshall",
-    caption: "They told our story like no one else ever has.",
-    link: "https://www.youtube.com/watch?v=AitwYmf8g7s&t=5s",
-  },
-  {
-    image: Virginia,
-    title: "University of Virginia Baseball",
-    caption:
-      "Goatnet helped us expand our story and spotlight the athletes behind the wins.",
-    link: "https://www.youtube.com/watch?v=7hhP25NCf2Y",
-  },
-  {
-    image: Harvery,
-    title: "Harvey Cedars Beach Patrol",
-    caption: "They captured more than a race — they told our legacy.",
-    link: "https://www.pbs.org/video/how-the-waves-were-won-zjrtb2/",
-  },
-];
-
 export default function About() {
   const controls = useAnimation();
   const ref = useRef<HTMLElement>(null);
-  const [current, setCurrent] = useState(0);
-  const [paused, setPaused] = useState(false);
 
-  // Observe visibility once
   useEffect(() => {
     if (!ref.current) return;
     const obs = new IntersectionObserver(
@@ -68,167 +44,79 @@ export default function About() {
     return () => obs.disconnect();
   }, [controls]);
 
-  // Auto-rotate carousel when not paused
-  useEffect(() => {
-    if (paused) return;
-    const interval = setInterval(
-      () => setCurrent((i) => (i + 1) % stories.length),
-      5000
-    );
-    return () => clearInterval(interval);
-  }, [paused]);
-
-  // Simple fade variants
-  const carouselVariants = {
-    hidden: { opacity: 0 },
-    enter: { opacity: 1 },
-    exit: { opacity: 0 },
-  };
+  const videoId = getYouTubeID(story.link);
 
   return (
-    <section id="about" ref={ref} className="relative bg-black overflow-hidden">
-      {/* subtle gradient background */}
+    <section
+      id="about"
+      ref={ref}
+      className="relative bg-black overflow-hidden py-20"
+    >
+      {/* Subtle gradient background */}
       <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-black pointer-events-none" />
 
-      {/* motion wrapper for content only */}
       <motion.div
-        className="relative max-w-7xl mx-auto px-8 py-2 md:py-20 grid md:grid-cols-2 gap-y-12 gap-x-28 items-center"
+        className="relative max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-16 items-center"
         initial="hidden"
         animate={controls}
-        variants={container}
+        variants={containerVariants}
       >
-        {/* Left side: copy + bullets */}
-        <div>
-          <motion.div variants={item} className="mb-6">
-            <h2 className="text-4xl md:text-5xl font-bold font-['Inter',sans-serif] text-white">
+        {/* Left side: copy without bullets */}
+        <div className="space-y-8">
+          <motion.div variants={itemVariants} className="space-y-4">
+            <h2 className="text-4xl md:text-5xl font-bold  text-white">
               About Us
             </h2>
             <div className="w-20 h-1 bg-purple-500 mt-2 rounded-full" />
           </motion.div>
 
-          <motion.p
-            variants={item}
-            className="text-gray-300 font-['Inter',sans-serif] mb-4"
-          >
-            GOATNET Your go-to advantage in the new media game
+          <motion.p variants={itemVariants} className="text-gray-300">
+            GOATNET: Your go-to advantage in the new media game. Rooted in
+            storytelling, we provide value through production, distribution, and
+            community engagement.
           </motion.p>
-          <motion.p
-            variants={item}
-            className="text-gray-400 font-['Inter',sans-serif] mb-6"
-          >
-            Rooted in storytelling, we exist to provide value for organizations
-            and individuals in the pursuit of greatness. Goatnet is a media and
-            technology solution for production, distribution, and community
-            engagement. We focus on narratives and assets that drive results.
+
+          <motion.p variants={itemVariants} className="text-gray-400">
+            We serve organizations and individuals with scalable social and
+            streaming solutions, leveraging AI production, creator tools, and
+            integrated agency services to drive narratives that resonate.
           </motion.p>
-          <motion.p
-            variants={item}
-            className="text-gray-400 font-['Inter',sans-serif] mb-8"
-          >
-            Goatnet provides scalable social and streaming solutions with A.I.
-            production advantages, creator tools, integrated agency services and
-            flexible distribution. We serve three targeted groups: Aspiring,
-            trending and legacy greats and those who support them. Everything we
-            do is collaborative, providing opportunities for your social media,
-            marketing efforts and attractions to thrive.
-          </motion.p>
-          <motion.p
-            variants={item}
-            className="text-gray-400 font-['Inter',sans-serif] mb-12"
-          >
+
+          <motion.p variants={itemVariants} className="text-gray-400">
             Join the family. Let’s Goat!
           </motion.p>
 
-          {/* Icon‑led bullets */}
-          <motion.div
-            variants={item}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-6"
-          >
-            <div className="flex items-center gap-3">
-              <BookOpen className="w-6 h-6 text-purple-500" />
-              <span className="text-white font-['Inter',sans-serif] font-medium">
-                Stories That Inspire.
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Users className="w-6 h-6 text-purple-500" />
-              <span className="text-white font-['Inter',sans-serif] font-medium">
-                Organizations & Creators.
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Zap className="w-6 h-6 text-purple-500" />
-              <span className="text-white font-['Inter',sans-serif] font-medium">
-                Breakthrough Moments.
-              </span>
-            </div>
-
-            {/* Learn More button */}
-            <motion.div variants={item} className="mt-8">
-              <Link to="/about" className="inline-block">
-                <motion.button
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    delay: 0.5,
-                    duration: 0.5,
-                    type: "spring",
-                    stiffness: 300,
-                  }}
-                  className="group relative inline-flex items-center px-8 py-2 font-semibold font-['Inter',sans-serif] text-sm uppercase tracking-wide text-white rounded-full bg-transparent border border-gray-500 transition hover:border-white hover:bg-white/10 focus:outline-none focus:ring-4 focus:ring-purple-600/40"
-                >
-                  Learn More
-                  <span
-                    className="absolute inset-0 rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity"
-                    style={{
-                      background:
-                        "radial-gradient(circle at center, rgba(147,51,234,0.6), transparent 70%)",
-                    }}
-                  />
-                </motion.button>
-              </Link>
-            </motion.div>
+          <motion.div variants={itemVariants}>
+            <Link to="/about">
+              <button className="px-8 py-3 font-semibold text-white rounded-full bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90">
+                Learn More
+              </button>
+            </Link>
           </motion.div>
         </div>
 
-        {/* Right side: carousel full width */}
-        <div className="w-full">
-          <AnimatePresence mode="wait">
-            <motion.a
-              key={current}
-              href={stories[current].link}
-              target="_blank"
-              rel="noopener noreferrer"
-              variants={carouselVariants}
-              initial="hidden"
-              animate="enter"
-              exit="exit"
-              transition={{ duration: 1.2, ease: "easeInOut" }}
-              className="block w-full rounded-xl overflow-hidden shadow-lg cursor-pointer relative"
-              onMouseEnter={() => setPaused(true)}
-              onMouseLeave={() => setPaused(false)}
-            >
-              <img
-                src={stories[current].image}
-                alt={stories[current].title}
-                className="w-full h-64 object-cover"
+        {/* Right side: single video embed */}
+        <motion.div
+          variants={itemVariants}
+          className="w-full rounded-xl overflow-hidden shadow-lg"
+        >
+          <div className="relative w-full h-0 pb-[56.25%]">
+            {videoId && (
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=0&controls=1`}
+                frameBorder="0"
+                allow="encrypted-media"
+                allowFullScreen
+                title="Showcase Video"
               />
-              {/* caption */}
-              <div className="p-4">
-                <h3 className="text-white font-semibold font-['Inter',sans-serif] text-xl mb-2">
-                  {stories[current].title}
-                </h3>
-                <p className="text-gray-400 font-['Inter',sans-serif] text-sm">
-                  - {stories[current].caption}
-                </p>
-              </div>
-            </motion.a>
-          </AnimatePresence>
-        </div>
+            )}
+          </div>
+        </motion.div>
       </motion.div>
 
       {/* decorative wave divider */}
-      <div className="w-full overflow-hidden leading-none">
+      <div className="w-full overflow-hidden leading-none -mt-1">
         <svg className="block w-full h-8" viewBox="0 0 1440 320">
           <path
             fill="#000"

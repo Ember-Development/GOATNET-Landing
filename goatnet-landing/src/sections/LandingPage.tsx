@@ -23,8 +23,8 @@ export default function LandingPage() {
       <Navbar onOpenModal={() => setModalOpen(true)} />
       <Hero />
       <About />
-      <Showcase />
       <Solutions />
+      <Showcase />
       <CallToAction onOpenModal={() => setModalOpen(true)} />
       <Members />
       <Footer />

@@ -37,7 +37,7 @@ export default function OverlayCTA() {
           <h1 className="text-2xl md:text-4xl font-bold font-['Inter',sans-serif] text-neutral-200 uppercase">
             Welcome to Goatnet
           </h1>
-          <p className="text-base text-neutral-300 font-['Inter',sans-serif] max-w-lg">
+          <p className="text-base text-neutral-300 font-['Inter',sans-serif] max-w-xl">
             Life is packed with great stories. We exist so they’re successfully
             shared.
           </p>

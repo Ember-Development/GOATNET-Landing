@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, PlayCircle, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import badge from "../assets/images/Goatnet_Icon_White.png";
 
 // Helper to extract YouTube ID
 function getYouTubeID(url: string) {
@@ -47,7 +48,7 @@ const items: Item[] = [
     title: "Meet the Marshalls",
     image:
       "https://cdn.prod.website-files.com/633efad2155ea72d199428e9/651ae3bc72ddd0c6927d2953_Screen%20Shot%202023-10-02%20at%2011.36.43%20AM-p-500.png",
-    video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    video: "https://www.youtube.com/watch?v=AitwYmf8g7s&t=5s",
     year: "",
     rating: "",
     type: "",
@@ -93,6 +94,11 @@ const modalVariants = {
   exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
 };
 
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
 export default function Showcase() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [modalItem, setModalItem] = useState<Item | null>(null);
@@ -108,10 +114,17 @@ export default function Showcase() {
   return (
     <section id="showcase" className="relative bg-black py-20">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-white mb-2">
-          Discover Greatness
-        </h2>
-        <p className="text-gray-400 mb-8">A taste of what's waiting inside.</p>
+        <motion.div variants={item} className="mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-white">
+            Attractions
+          </h2>
+          <div className="w-20 h-1 bg-purple-500 mt-2 rounded-full" />
+        </motion.div>
+        <motion.p variants={item} className="text-gray-300 mb-12">
+          What are attractions? Think of them as the spotlight items in your
+          collection—products you stand behind and experiences you champion, all
+          designed to pull your network closer.
+        </motion.p>
 
         {/* Carousel with arrows */}
         <div className="relative">
@@ -133,13 +146,15 @@ export default function Showcase() {
             className="flex space-x-8 overflow-x-auto snap-x snap-mandatory scroll-hide"
           >
             {items.map((item) => (
-              <div
+              <motion.div
                 key={item.id}
                 className="relative snap-center min-w-[280px] md:min-w-[320px] lg:min-w-[360px] rounded-lg overflow-hidden cursor-pointer"
                 onClick={() => {
                   setModalItem(item);
                   setPlayVideo(false);
                 }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <img
                   src={item.image}
@@ -151,7 +166,7 @@ export default function Showcase() {
                     {item.title}
                   </span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -223,14 +238,19 @@ export default function Showcase() {
                   {/* Actions */}
                   <div className="flex items-center gap-4">
                     <button
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 rounded-full text-lg font-semibold"
+                      className="inline-flex items-center gap-2 px-6 py-3  font-semibold text-white rounded-full bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90"
                       onClick={() => setPlayVideo(true)}
                     >
                       <PlayCircle className="w-5 h-5" /> Play
                     </button>
-                    <button className="px-4 py-2 border border-white/30 rounded text-white hover:border-white">
+                    {/* <button className="px-4 py-2 border border-white/30 rounded text-white hover:border-white">
                       More Info
-                    </button>
+                    </button> */}
+                    <img
+                      src={badge}
+                      alt="badge goat"
+                      className="absolute bottom-8 right-8 w-10 h-10 opacity-80 pointer-events-none"
+                    />
                   </div>
                 </div>
 

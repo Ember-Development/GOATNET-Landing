@@ -16,6 +16,14 @@
   display: none;
 }
 
+.scroll-hide {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scroll-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0);
@@ -56,5 +64,11 @@ button:focus-visible {
   }
   a:hover {
     color: #747bff;
+  }
+}
+
+@layer base {
+  body {
+    font-family: "Poppins", sans-serif;
   }
 }

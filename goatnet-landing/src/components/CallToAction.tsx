@@ -19,7 +19,7 @@ export default function CallToAction({ onOpenModal }: CallToActionProps) {
     >
       <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-black pointer-events-none" />
 
-      <div className="relative z-10 max-w-3xl mx-auto text-center px-6 space-y-6">
+      <div className="relative z-10 max-w-7xl mx-auto text-center px-6 space-y-6">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -52,7 +52,7 @@ export default function CallToAction({ onOpenModal }: CallToActionProps) {
             }}
             className="relative inline-flex items-center px-8 py-3 font-semibold text-sm uppercase tracking-wide text-white rounded-full border border-gray-500 hover:border-white hover:bg-white/10 transition"
           >
-            Introduce Yourself
+            Announce Yourself
             <span
               className="absolute inset-0 rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity"
               style={{
@@ -62,7 +62,7 @@ export default function CallToAction({ onOpenModal }: CallToActionProps) {
             />
           </motion.button>
 
-          <MotionLink
+          {/* <MotionLink
             to="/crdntl"
             reloadDocument
             initial={{ opacity: 0, scale: 0.9 }}
@@ -76,7 +76,7 @@ export default function CallToAction({ onOpenModal }: CallToActionProps) {
             className="inline-flex items-center px-8 py-3 font-semibold text-sm uppercase tracking-wide text-gray-300 rounded-full border border-gray-600 hover:text-white hover:border-white transition"
           >
             Learn About CRDNTL
-          </MotionLink>
+          </MotionLink> */}
         </div>
       </div>
     </section>

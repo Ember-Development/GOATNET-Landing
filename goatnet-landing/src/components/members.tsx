@@ -1,4 +1,3 @@
-// src/components/Members.tsx
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, PlayCircle, X } from "lucide-react";
@@ -19,7 +18,6 @@ type Member = {
   id: string;
   name: string;
   image: string;
-  // only one of these will be set per member
   videoUrl?: string;
   link?: string;
 };
@@ -30,7 +28,7 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-// Organizations now use `link` instead of videoUrl
+// Data arrays
 const orgs: Member[] = [
   {
     id: "org1",
@@ -80,7 +78,7 @@ const people: Member[] = [
     image: dustyImg,
     videoUrl: "https://www.youtube.com/watch?v=X0a3LMAWMnw",
   },
-  { id: "p4", name: "Jennifer Ford", image: jenImg, videoUrl: "" },
+  { id: "p4", name: "Jennifer Ford", image: jenImg },
   {
     id: "p5",
     name: "Kevin Davidson",
@@ -93,24 +91,19 @@ const people: Member[] = [
     image: adamImg,
     videoUrl: "https://www.youtube.com/watch?v=nXr5FFSIuL8",
   },
-  { id: "p7", name: "Annie Cross-Codron", image: annieImg, videoUrl: "" },
-  { id: "p8", name: "Dillion Kelly", image: dillionImg, videoUrl: "" },
-  { id: "p9", name: "Lexie Shaver", image: lexieImg, videoUrl: "" },
+  { id: "p7", name: "Annie Cross-Codron", image: annieImg },
+  { id: "p8", name: "Dillion Kelly", image: dillionImg },
+  { id: "p9", name: "Lexie Shaver", image: lexieImg },
 ];
 
 export default function Members() {
-  const tabs = ["People", "Organizations"] as const;
-  type Tab = (typeof tabs)[number];
-  const [activeTab, setActiveTab] = useState<Tab>("People");
   const ref = useRef<HTMLElement>(null);
-
-  // People carousel refs & state
   const containerRef = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
 
-  // Auto-scroll People every 5s
+  // Auto-scroll People carousel
   useEffect(() => {
-    if (activeTab !== "People" || paused) return;
+    if (paused) return;
     const id = setInterval(() => {
       containerRef.current?.scrollBy({
         left: containerRef.current.offsetWidth * 0.8,
@@ -118,12 +111,7 @@ export default function Members() {
       });
     }, 5000);
     return () => clearInterval(id);
-  }, [activeTab, paused]);
-
-  // Snap back when tab changes
-  useEffect(() => {
-    containerRef.current?.scrollTo({ left: 0, behavior: "auto" });
-  }, [activeTab]);
+  }, [paused]);
 
   const scroll = (dir: "left" | "right") => {
     const c = containerRef.current;
@@ -134,13 +122,12 @@ export default function Members() {
     });
   };
 
-  // Video modal state
-  const [modalItem, setModalItem] = useState<Member | null>(null);
   const toEmbedUrl = (url: string) => {
-    if (url.includes("/embed/")) return url;
     const id = url.split("watch?v=")[1]?.split("&")[0];
     return id ? `https://www.youtube.com/embed/${id}` : url;
   };
+
+  const [modalItem, setModalItem] = useState<Member | null>(null);
 
   return (
     <section
@@ -150,122 +137,110 @@ export default function Members() {
     >
       <div className="max-w-7xl mx-auto px-6">
         {/* Heading */}
-        <motion.div variants={item} className="mb-6">
-          <h2 className="text-4xl md:text-5xl font-bold font-['Inter',sans-serif] text-white">
-            Community
+        <motion.div
+          variants={item}
+          initial="hidden"
+          animate="show"
+          className="mb-6"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-white">
+            Credentials
           </h2>
           <div className="w-20 h-1 bg-purple-500 mt-2 rounded-full" />
         </motion.div>
-        <motion.p
-          variants={item}
-          className="text-gray-300 font-['Inter',sans-serif] mb-12"
-        >
-          Find out who's already on GOATNET.
+        <motion.p variants={item} className="text-gray-300 mb-12">
+          Goatnet has Guest, Select & Goat memberships with tiered status.
+          Public launch coming soon. Sign up and stay in the loop for key
+          milestones.
         </motion.p>
 
-        {/* Tabs */}
-        <div className="flex gap-4 justify-center mb-8">
-          {tabs.map((t) =>
-            t === activeTab ? (
-              <button
-                key={t}
-                onClick={() => setActiveTab(t)}
-                className="px-6 py-2 rounded-full bg-purple-600 text-white font-semibold font-['Inter',sans-serif] uppercase text-sm shadow-lg"
-              >
-                {t}
-              </button>
-            ) : (
-              <button
-                key={t}
-                onClick={() => setActiveTab(t)}
-                className="px-4 py-1 rounded-full border border-white border-opacity-20 font-semibold font-['Inter',sans-serif] text-white text-opacity-60 hover:text-opacity-100 transition"
-              >
-                {t}
-              </button>
-            )
-          )}
-        </div>
-
-        {/* Carousel Container */}
+        {/* People Carousel */}
         <div
-          className="relative"
+          className="relative mb-24"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          {/* People Carousel */}
-          {activeTab === "People" && (
-            <>
-              <button
-                onClick={() => scroll("left")}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 rounded-full hover:bg-black/70"
-              >
-                <ChevronLeft className="w-6 h-6 text-white" />
-              </button>
-              <button
-                onClick={() => scroll("right")}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 rounded-full hover:bg-black/70"
-              >
-                <ChevronRight className="w-6 h-6 text-white" />
-              </button>
-
+          <button
+            onClick={() => scroll("left")}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 rounded-full hover:bg-black/70"
+          >
+            <ChevronLeft className="w-6 h-6 text-white" />
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 rounded-full hover:bg-black/70"
+          >
+            <ChevronRight className="w-6 h-6 text-white" />
+          </button>
+          <div
+            ref={containerRef}
+            className="flex space-x-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory"
+          >
+            {people.map((m) => (
               <div
-                ref={containerRef}
-                className="flex space-x-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory"
+                key={m.id}
+                onClick={() => setModalItem(m)}
+                className="relative min-w-[200px] lg:min-w-[240px] snap-start rounded-xl overflow-hidden shadow-lg cursor-pointer group"
               >
-                {people.map((m) => (
-                  <div
-                    key={m.id}
-                    onClick={() => setModalItem(m)}
-                    className="relative min-w-[200px] lg:min-w-[240px] snap-start rounded-xl overflow-hidden shadow-lg cursor-pointer group"
-                  >
-                    <img
-                      src={m.image}
-                      alt={m.name}
-                      className="w-full h-full object-cover"
-                    />
-                    {m.videoUrl && (
-                      <div className="absolute inset-0 bg-opacity-30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                        <PlayCircle className="w-12 h-12 text-white" />
-                      </div>
-                    )}
+                <img
+                  src={m.image}
+                  alt={m.name}
+                  className="w-full h-full object-cover"
+                />
+                {m.videoUrl && (
+                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                    <PlayCircle className="w-12 h-12 text-white" />
                   </div>
-                ))}
+                )}
               </div>
-            </>
-          )}
+            ))}
+          </div>
+        </div>
 
-          {/* Organizations continuous marquee */}
-          {activeTab === "Organizations" && (
-            <div className="overflow-hidden">
-              {/* duplicate the array so it wraps seamlessly */}
-              <div className="flex animate-marquee">
-                {[...orgs, ...orgs].map((m, i) => (
-                  <a
-                    key={`${m.id}-${i}`}
-                    href={m.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center mt-2"
-                    style={{ minWidth: "150px" }}
-                  >
-                    <img
-                      src={m.image}
-                      alt={m.name}
-                      className="h-20 object-contain"
-                    />
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
+        <motion.div
+          variants={item}
+          initial="hidden"
+          animate="show"
+          className="mb-6"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-white">
+            Partners
+          </h2>
+          <div className="w-20 h-1 bg-purple-500 mt-2 rounded-full" />
+        </motion.div>
+        <motion.p variants={item} className="text-gray-300 mb-12">
+          We offer flexible models based on goals and needs, including
+          shared-cost approaches with buy-in strategies involving sponsors,
+          boosters and external networks.
+        </motion.p>
+
+        {/* Organizations Marquee */}
+        <div className="overflow-hidden mb-12">
+          <div className="flex animate-marquee">
+            {[...orgs, ...orgs].map((m, i) => (
+              <a
+                key={`${m.id}-${i}`}
+                href={m.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center mt-2"
+                style={{ minWidth: "150px" }}
+              >
+                <img
+                  src={m.image}
+                  alt={m.name}
+                  className="h-20 object-contain"
+                />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Video Modal */}
       <AnimatePresence>
-        {modalItem && modalItem.videoUrl && (
+        {modalItem?.videoUrl && (
           <motion.div
-            key="modal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -287,7 +262,7 @@ export default function Members() {
                 <iframe
                   className="w-full h-full"
                   src={`${toEmbedUrl(
-                    modalItem.videoUrl!
+                    modalItem.videoUrl
                   )}?autoplay=1&controls=1`}
                   loading="lazy"
                   allow="autoplay; encrypted-media"
