@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
-import { Link } from "react-router-dom";
 
 // Helper to extract YouTube ID
 function getYouTubeID(url: string) {
@@ -52,7 +51,6 @@ export default function About() {
       ref={ref}
       className="relative bg-black overflow-hidden py-20"
     >
-      {/* Subtle gradient background */}
       <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-black pointer-events-none" />
 
       <motion.div
@@ -61,7 +59,6 @@ export default function About() {
         animate={controls}
         variants={containerVariants}
       >
-        {/* Left side: copy without bullets */}
         <div className="space-y-8">
           <motion.div variants={itemVariants} className="space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold  text-white">
@@ -87,7 +84,6 @@ export default function About() {
           </motion.p>
         </div>
 
-        {/* Right side: single video embed */}
         <motion.div
           variants={itemVariants}
           className="w-full rounded-xl overflow-hidden shadow-lg"
@@ -107,7 +103,6 @@ export default function About() {
         </motion.div>
       </motion.div>
 
-      {/* decorative wave divider */}
       <div className="w-full overflow-hidden leading-none -mt-1">
         <svg className="block w-full h-8" viewBox="0 0 1440 320">
           <path

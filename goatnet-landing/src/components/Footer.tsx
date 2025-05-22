@@ -1,4 +1,4 @@
-import { FaDiscord, FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa";
+import { FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa";
 import Goat from "../assets/images/goat.png";
 
 const Footer = () => (
@@ -48,7 +48,6 @@ const Footer = () => (
         </div>
       </div>
 
-      {/* Explore Links */}
       <div className="col-span-1">
         <h4 className="text-white font-semibold mb-4">Explore</h4>
         <ul className="space-y-2">
@@ -65,7 +64,6 @@ const Footer = () => (
         </ul>
       </div>
 
-      {/* Credentials & Partners */}
       <div className="col-span-1">
         <h4 className="text-white font-semibold mb-4">Membership</h4>
         <ul className="space-y-2">
@@ -82,7 +80,6 @@ const Footer = () => (
         </ul>
       </div>
 
-      {/* Legal Links */}
       <div className="col-span-1">
         <h4 className="text-white font-semibold mb-4">Legal</h4>
         <ul className="space-y-2">
@@ -106,7 +103,6 @@ const Footer = () => (
       </div>
     </div>
 
-    {/* Bottom bar */}
     <div className="border-t border-gray-700">
       <div className="max-w-7xl mx-auto px-6 py-6 text-center text-sm text-gray-500">
         &copy; {new Date().getFullYear()} Goatnet. All rights reserved.

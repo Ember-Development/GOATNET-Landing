@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // Image imports
 import dinnImg from "../assets/images/dinn.png";
@@ -27,7 +27,6 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-// Organizations data
 const orgs: Member[] = [
   {
     id: "org1",
@@ -58,7 +57,6 @@ const orgs: Member[] = [
   },
 ];
 
-// People credentials (no auto-scroll or video interactions)
 const people: Member[] = [
   { id: "p1", name: "Dinn Mann", image: dinnImg },
   { id: "p2", name: "Darnell McDonald", image: darnImg },
@@ -74,7 +72,6 @@ const people: Member[] = [
 export default function Members() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Manual scroll controls
   const scroll = (dir: "left" | "right") => {
     const c = containerRef.current;
     if (!c) return;
@@ -90,7 +87,6 @@ export default function Members() {
       className="relative bg-black py-14 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6">
-        {/* Heading + Waitlist button */}
         <motion.div
           variants={item}
           initial="hidden"
@@ -110,7 +106,6 @@ export default function Members() {
           milestones.
         </motion.p>
 
-        {/* Credentials Cards (static display) */}
         <div className="relative mb-24">
           <button
             onClick={() => scroll("left")}
@@ -143,7 +138,6 @@ export default function Members() {
           </div>
         </div>
 
-        {/* Partners Section */}
         <motion.div
           id="partners"
           variants={item}
@@ -164,7 +158,6 @@ export default function Members() {
           boosters and external networks.
         </motion.p>
 
-        {/* Organizations Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
           {orgs.map((m) => (
             <a
