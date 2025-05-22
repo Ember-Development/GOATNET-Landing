@@ -135,7 +135,14 @@ export default function SolutionsProcess() {
             ))}
           </nav>
 
-          <h2 className="text-4xl font-bold">Why GOATNET?</h2>
+          <p className="text-gray-300 font-['Inter',sans-serif] mb-6 max-w-dvw leading-relaxed">
+            {activeTab === "Storytelling" &&
+              "Share your why & celebrate others like never before. Set the tone, timeless and relevant, on your journey"}
+            {activeTab === "Innovation" &&
+              "Your online presence should impress. As tech evolves, advancing with it is essential"}
+            {activeTab === "Community" &&
+              "This is a filtered place, located above the noise. Point is, prioritize greatness & do so considerately "}
+          </p>
 
           <div className="grid grid-cols-2 gap-6">
             {items.map((item, idx) => (

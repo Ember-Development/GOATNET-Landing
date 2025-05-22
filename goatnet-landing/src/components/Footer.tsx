@@ -1,56 +1,28 @@
-// src/components/Footer.tsx
 import { FaDiscord, FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa";
 import Goat from "../assets/images/goat.png";
 
 const Footer = () => (
   <footer className="bg-black text-gray-400 border-t border-gray-700">
     {/* Top section */}
-    <div className="max-w-7xl mx-auto px-2 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
       {/* Logo & tagline */}
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-4 col-span-1 md:col-span-1">
         <img src={Goat} alt="Goatnet" className="h-8" width={200} />
-        <p className="text-sm font-['Inter',sans-serif] text-gray-400">
+        <p className="text-sm text-gray-400">
           Elevating the game through technology and storytelling.
         </p>
-      </div>
-
-      {/* Quick links */}
-      <div>
-        <h4 className="text-white font-semibold font-['Inter',sans-serif] mb-4">
-          Explore
-        </h4>
-        <ul className="space-y-2">
-          {["About", "Showcase", "Solutions", "Community", "Contact"].map(
-            (item) => (
-              <li key={item}>
-                <a
-                  href={`#${item.toLowerCase()}`}
-                  className="text-white font-['Inter',sans-serif] hover:text-purple-400 transition-colors"
-                >
-                  {item}
-                </a>
-              </li>
-            )
-          )}
-        </ul>
-      </div>
-
-      {/* Social */}
-      <div>
-        <h4 className="text-white font-semibold font-['Inter',sans-serif] mb-4">
-          Follow Goatnet
-        </h4>
-        <div className="flex space-x-4">
-          <a
+        {/* Social Icons */}
+        <div className="flex space-x-4 mt-4">
+          {/* <a
             href="https://discord.gg/yourserver"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-purple-400 transition-colors"
           >
             <FaDiscord size={20} />
-          </a>
+          </a> */}
           <a
-            href="https://youtube.com/yourchannel"
+            href="https://www.youtube.com/@GoatnetOriginals"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-purple-400 transition-colors"
@@ -58,7 +30,7 @@ const Footer = () => (
             <FaYoutube size={20} />
           </a>
           <a
-            href="https://tiktok.com/@yourprofile"
+            href="https://www.tiktok.com/@itsgoatnet"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-purple-400 transition-colors"
@@ -66,7 +38,7 @@ const Footer = () => (
             <FaTiktok size={20} />
           </a>
           <a
-            href="https://instagram.com/yourprofile"
+            href="https://www.instagram.com/itsgoatnet/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-purple-400 transition-colors"
@@ -75,34 +47,69 @@ const Footer = () => (
           </a>
         </div>
       </div>
+
+      {/* Explore Links */}
+      <div className="col-span-1">
+        <h4 className="text-white font-semibold mb-4">Explore</h4>
+        <ul className="space-y-2">
+          {["About", "Attractions", "Vision"].map((item) => (
+            <li key={item}>
+              <a
+                href={`#${item.toLowerCase()}`}
+                className="text-white hover:text-purple-400 transition-colors"
+              >
+                {item}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Credentials & Partners */}
+      <div className="col-span-1">
+        <h4 className="text-white font-semibold mb-4">Membership</h4>
+        <ul className="space-y-2">
+          {["Credentials", "Partners"].map((item) => (
+            <li key={item}>
+              <a
+                href={`#${item.toLowerCase()}`}
+                className="text-white hover:text-purple-400 transition-colors"
+              >
+                {item}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Legal Links */}
+      <div className="col-span-1">
+        <h4 className="text-white font-semibold mb-4">Legal</h4>
+        <ul className="space-y-2">
+          {["Contact", "Terms of Service", "Privacy Policy"].map((item) => (
+            <li key={item}>
+              <a
+                href={
+                  item === "Contact"
+                    ? `#${item.toLowerCase()}`
+                    : item === "Terms of Service"
+                    ? "/terms"
+                    : "/privacy"
+                }
+                className="text-white hover:text-purple-400 transition-colors text-sm"
+              >
+                {item}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
 
     {/* Bottom bar */}
     <div className="border-t border-gray-700">
-      <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between">
-        <p className="text-sm font-['Inter',sans-serif] text-gray-500">
-          &copy; {new Date().getFullYear()} Goatnet. All rights reserved.
-        </p>
-        <div className="flex space-x-4 mt-4 md:mt-0">
-          <a
-            href="/privacy"
-            className="text-white hover:text-purple-400 font-['Inter',sans-serif] transition-colors text-sm"
-          >
-            Privacy Policy
-          </a>
-          <a
-            href="/terms"
-            className="text-white hover:text-purple-400 transition-colors font-['Inter',sans-serif] text-sm"
-          >
-            Terms of Service
-          </a>
-          <a
-            href="/contact"
-            className="text-white hover:text-purple-400 transition-colors font-['Inter',sans-serif] text-sm"
-          >
-            Contact
-          </a>
-        </div>
+      <div className="max-w-7xl mx-auto px-6 py-6 text-center text-sm text-gray-500">
+        &copy; {new Date().getFullYear()} Goatnet. All rights reserved.
       </div>
     </div>
   </footer>

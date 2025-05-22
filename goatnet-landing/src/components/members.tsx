@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, PlayCircle, X } from "lucide-react";
+import { useRef } from "react";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 // Image imports
 import dinnImg from "../assets/images/dinn.png";
@@ -14,11 +14,10 @@ import dillionImg from "../assets/images/dillion.png";
 import lexieImg from "../assets/images/lexie.png";
 import HBCU from "../assets/images/hbcu.png";
 
-type Member = {
+export type Member = {
   id: string;
   name: string;
   image: string;
-  videoUrl?: string;
   link?: string;
 };
 
@@ -28,7 +27,7 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-// Data arrays
+// Organizations data
 const orgs: Member[] = [
   {
     id: "org1",
@@ -59,60 +58,23 @@ const orgs: Member[] = [
   },
 ];
 
+// People credentials (no auto-scroll or video interactions)
 const people: Member[] = [
-  {
-    id: "p1",
-    name: "Dinn Mann",
-    image: dinnImg,
-    videoUrl: "https://www.youtube.com/watch?v=yJr6tbInO4g",
-  },
-  {
-    id: "p2",
-    name: "Darnell McDonald",
-    image: darnImg,
-    videoUrl: "https://www.youtube.com/watch?v=VLvrR6d5kOw",
-  },
-  {
-    id: "p3",
-    name: "Dusty Baker",
-    image: dustyImg,
-    videoUrl: "https://www.youtube.com/watch?v=X0a3LMAWMnw",
-  },
+  { id: "p1", name: "Dinn Mann", image: dinnImg },
+  { id: "p2", name: "Darnell McDonald", image: darnImg },
+  { id: "p3", name: "Dusty Baker", image: dustyImg },
   { id: "p4", name: "Jennifer Ford", image: jenImg },
-  {
-    id: "p5",
-    name: "Kevin Davidson",
-    image: kevinImg,
-    videoUrl: "https://www.youtube.com/watch?v=ckM3pG5Yor4",
-  },
-  {
-    id: "p6",
-    name: "Adam Jones",
-    image: adamImg,
-    videoUrl: "https://www.youtube.com/watch?v=nXr5FFSIuL8",
-  },
+  { id: "p5", name: "Kevin Davidson", image: kevinImg },
+  { id: "p6", name: "Adam Jones", image: adamImg },
   { id: "p7", name: "Annie Cross-Codron", image: annieImg },
   { id: "p8", name: "Dillion Kelly", image: dillionImg },
   { id: "p9", name: "Lexie Shaver", image: lexieImg },
 ];
 
 export default function Members() {
-  const ref = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [paused, setPaused] = useState(false);
 
-  // Auto-scroll People carousel
-  useEffect(() => {
-    if (paused) return;
-    const id = setInterval(() => {
-      containerRef.current?.scrollBy({
-        left: containerRef.current.offsetWidth * 0.8,
-        behavior: "smooth",
-      });
-    }, 5000);
-    return () => clearInterval(id);
-  }, [paused]);
-
+  // Manual scroll controls
   const scroll = (dir: "left" | "right") => {
     const c = containerRef.current;
     if (!c) return;
@@ -122,31 +84,25 @@ export default function Members() {
     });
   };
 
-  const toEmbedUrl = (url: string) => {
-    const id = url.split("watch?v=")[1]?.split("&")[0];
-    return id ? `https://www.youtube.com/embed/${id}` : url;
-  };
-
-  const [modalItem, setModalItem] = useState<Member | null>(null);
-
   return (
     <section
-      id="community"
-      ref={ref}
+      id="credentials"
       className="relative bg-black py-14 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6">
-        {/* Heading */}
+        {/* Heading + Waitlist button */}
         <motion.div
           variants={item}
           initial="hidden"
           animate="show"
-          className="mb-6"
+          className="mb-6 flex items-center justify-between"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white">
             Credentials
           </h2>
-          <div className="w-20 h-1 bg-purple-500 mt-2 rounded-full" />
+          <button className="px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold rounded-full hover:opacity-90 transition">
+            Join Waitlist
+          </button>
         </motion.div>
         <motion.p variants={item} className="text-gray-300 mb-12">
           Goatnet has Guest, Select & Goat memberships with tiered status.
@@ -154,12 +110,8 @@ export default function Members() {
           milestones.
         </motion.p>
 
-        {/* People Carousel */}
-        <div
-          className="relative mb-24"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-        >
+        {/* Credentials Cards (static display) */}
+        <div className="relative mb-24">
           <button
             onClick={() => scroll("left")}
             className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 rounded-full hover:bg-black/70"
@@ -179,34 +131,32 @@ export default function Members() {
             {people.map((m) => (
               <div
                 key={m.id}
-                onClick={() => setModalItem(m)}
-                className="relative min-w-[200px] lg:min-w-[240px] snap-start rounded-xl overflow-hidden shadow-lg cursor-pointer group"
+                className="relative min-w-[200px] lg:min-w-[240px] snap-start rounded-xl overflow-hidden shadow-lg"
               >
                 <img
                   src={m.image}
                   alt={m.name}
                   className="w-full h-full object-cover"
                 />
-                {m.videoUrl && (
-                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                    <PlayCircle className="w-12 h-12 text-white" />
-                  </div>
-                )}
               </div>
             ))}
           </div>
         </div>
 
+        {/* Partners Section */}
         <motion.div
+          id="partners"
           variants={item}
           initial="hidden"
           animate="show"
-          className="mb-6"
+          className="mb-6 flex items-center justify-between"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white">
             Partners
           </h2>
-          <div className="w-20 h-1 bg-purple-500 mt-2 rounded-full" />
+          <button className="px-6 py-2 border border-white/30 text-white font-semibold rounded-full hover:bg-white/10 transition">
+            Contact Us
+          </button>
         </motion.div>
         <motion.p variants={item} className="text-gray-300 mb-12">
           We offer flexible models based on goals and needs, including
@@ -214,64 +164,28 @@ export default function Members() {
           boosters and external networks.
         </motion.p>
 
-        {/* Organizations Marquee */}
-        <div className="overflow-hidden mb-12">
-          <div className="flex animate-marquee">
-            {[...orgs, ...orgs].map((m, i) => (
-              <a
-                key={`${m.id}-${i}`}
-                href={m.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center mt-2"
-                style={{ minWidth: "150px" }}
-              >
-                <img
-                  src={m.image}
-                  alt={m.name}
-                  className="h-20 object-contain"
-                />
-              </a>
-            ))}
-          </div>
+        {/* Organizations Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+          {orgs.map((m) => (
+            <a
+              key={m.id}
+              href={m.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center bg-white/10 backdrop-blur-lg border border-white/20 rounded-lg p-6 hover:scale-105 transition-transform"
+            >
+              <img
+                src={m.image}
+                alt={m.name}
+                className="h-20 object-contain mb-4"
+              />
+              <span className="text-white font-semibold text-center">
+                {m.name}
+              </span>
+            </a>
+          ))}
         </div>
       </div>
-
-      {/* Video Modal */}
-      <AnimatePresence>
-        {modalItem?.videoUrl && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
-          >
-            <motion.div
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.8 }}
-              className="relative w-full max-w-xl mx-4 bg-black rounded-lg overflow-hidden"
-            >
-              <button
-                onClick={() => setModalItem(null)}
-                className="absolute top-2 right-2 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white"
-              >
-                <X className="w-6 h-6" />
-              </button>
-              <div className="aspect-video">
-                <iframe
-                  className="w-full h-full"
-                  src={`${toEmbedUrl(
-                    modalItem.videoUrl
-                  )}?autoplay=1&controls=1`}
-                  loading="lazy"
-                  allow="autoplay; encrypted-media"
-                />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

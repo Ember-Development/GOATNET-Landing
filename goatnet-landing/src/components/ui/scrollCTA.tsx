@@ -40,7 +40,7 @@ export default function ScrollCTA() {
             className="h-6 md:h-6 mr-2"
           />
           <div>
-            <p className="text-xs md:text-sm font-['Inter',sans-serif] text-neutral-300">
+            <p className="text-xs md:text-sm text-neutral-300">
               Subscribe for the latest updates.
             </p>
           </div>
@@ -54,11 +54,11 @@ export default function ScrollCTA() {
           <input
             type="email"
             placeholder="Your email"
-            className="flex-1 bg-transparent font-['Inter',sans-serif] text-white placeholder-gray-400 focus:outline-none text-xs"
+            className="flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none text-xs"
           />
           <button
             type="submit"
-            className="ml-2 px-3 py-1 rounded-full text-white font-['Inter',sans-serif] italic font-medium uppercase text-xs tracking-wide bg-gradient-to-r from-blue-500 to-purple-600 hover:scale-105 transform transition"
+            className="ml-2 px-3 py-1 rounded-full text-white italic font-medium uppercase text-xs tracking-wide bg-gradient-to-r from-blue-500 to-purple-600 hover:scale-105 transform transition"
           >
             Subscribe
           </button>

@@ -10,7 +10,7 @@ function getYouTubeID(url: string) {
 
 // Showcase story for video embed
 const story = {
-  link: "https://www.youtube.com/watch?v=AitwYmf8g7s&t=5s",
+  link: "https://www.youtube.com/watch?v=SfYZUrJfMII",
 };
 
 // Animation variants
@@ -85,14 +85,6 @@ export default function About() {
           <motion.p variants={itemVariants} className="text-gray-400">
             Join the family. Let’s Goat!
           </motion.p>
-
-          <motion.div variants={itemVariants}>
-            <Link to="/about">
-              <button className="px-8 py-3 font-semibold text-white rounded-full bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90">
-                Learn More
-              </button>
-            </Link>
-          </motion.div>
         </div>
 
         {/* Right side: single video embed */}

@@ -51,7 +51,7 @@ export default function UserTypeModal({
 
   const steps = [
     /* 0: select type */
-    <div className="space-y-4 text-center px-6">
+    <div className="space-y-8 text-center px-6">
       <h2 className="text-2xl font-bold text-white">I am…</h2>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {([" a individual", "an organization", "a supporter"] as const).map(
@@ -65,7 +65,7 @@ export default function UserTypeModal({
                   : "border-white/20 hover:border-purple-400"
               }`}
             >
-              {t.charAt(0).toUpperCase() + t.slice(1)}
+              {t.charAt(0) + t.slice(1)}
             </button>
           )
         )}
@@ -173,7 +173,7 @@ export default function UserTypeModal({
           exit="hidden"
         >
           <motion.div
-            className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 bg-opacity-80 backdrop-blur-lg border border-white/10 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl ring-1 ring-white/20"
+            className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 bg-opacity-80 backdrop-blur-lg border border-white/10 rounded-3xl max-w-lg md:max-w-2xl lg:max-w-2xl w-full overflow-hidden shadow-2xl ring-1 ring-white/20"
             variants={modalVariants}
             initial="hidden"
             animate="visible"

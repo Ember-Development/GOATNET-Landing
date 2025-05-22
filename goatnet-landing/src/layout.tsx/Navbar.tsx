@@ -7,9 +7,10 @@ import ScrollCTA from "../components/ui/scrollCTA";
 
 const NAV_ITEMS = [
   { id: "about", label: "About" },
-  { id: "showcase", label: "Showcase" },
-  { id: "solutions", label: "Solutions" },
-  { id: "community", label: "Community" },
+  { id: "showcase", label: "Attractions" },
+  { id: "credentials", label: "Credentials" },
+  { id: "partners", label: "Partners" },
+  { id: "vision", label: "Vision" },
   { id: "contact", label: "Contact" },
 ];
 

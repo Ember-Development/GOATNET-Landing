@@ -34,10 +34,10 @@ export default function OverlayCTA() {
 
         {/* Text Block */}
         <div className="flex-1 text-center md:text-left space-y-1">
-          <h1 className="text-2xl md:text-4xl font-bold font-['Inter',sans-serif] text-neutral-200 uppercase">
+          <h1 className="text-2xl md:text-4xl font-bold text-neutral-200 uppercase">
             Welcome to Goatnet
           </h1>
-          <p className="text-base text-neutral-300 font-['Inter',sans-serif] max-w-xl">
+          <p className="text-base text-neutral-300 max-w-xl">
             Life is packed with great stories. We exist so they’re successfully
             shared.
           </p>
@@ -62,11 +62,11 @@ export default function OverlayCTA() {
           <input
             type="email"
             placeholder="Enter email"
-            className="flex-1 bg-transparent font-['Inter',sans-serif] text-white placeholder-gray-400 focus:outline-none"
+            className="flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none"
           />
           <button
             type="submit"
-            className="relative ml-3 px-6 py-2 rounded-full text-white font-bold font-['Inter',sans-serif] italic uppercase text-sm leading-none bg-gradient-to-r from-blue-500 to-purple-600 transition-transform hover:scale-105"
+            className="relative ml-3 px-6 py-2 rounded-full text-white font-bold italic uppercase text-sm leading-none bg-gradient-to-r from-blue-500 to-purple-600 transition-transform hover:scale-105"
           >
             Subscribe
           </button>
