@@ -2,18 +2,6 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-// Image imports
-import dinnImg from "../assets/images/dinn.png";
-import darnImg from "../assets/images/darn.png";
-import dustyImg from "../assets/images/dusty.png";
-import jenImg from "../assets/images/jen.png";
-import kevinImg from "../assets/images/kevin.png";
-import adamImg from "../assets/images/adam.png";
-import annieImg from "../assets/images/annie.png";
-import dillionImg from "../assets/images/dillion.png";
-import lexieImg from "../assets/images/lexie.png";
-import HBCU from "../assets/images/hbcu.png";
-
 export type Member = {
   id: string;
   name: string;
@@ -21,11 +9,30 @@ export type Member = {
   link?: string;
 };
 
-// Animation variant for headings
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
+// ——— DYNAMIC IMAGE IMPORT (Webpack / CRA) ———
+function fileNameToName(fn: string) {
+  const name = fn.replace(/\.(png|jpe?g|svg)$/, "");
+  return name
+    .split(/[-_]/)
+    .map((w) => w[0].toUpperCase() + w.slice(1))
+    .join(" ");
+}
+
+// Dynamically import all images in ../assets/images
+const images = import.meta.glob("../assets/creds/*.{png,jpg,jpeg,svg}", {
+  eager: true,
+  import: "default",
+});
+
+// Build people array dynamically from all images in ../assets/images
+const people: Member[] = Object.entries(images).map(([path, image]) => ({
+  id: path.split("/").pop() || "",
+  name: fileNameToName(path.split("/").pop() || ""),
+  image: image as string,
+}));
+
+// Organizations (static imports for external URLs or special images)
+import HBCU from "../assets/images/hbcu.png";
 
 const orgs: Member[] = [
   {
@@ -57,17 +64,11 @@ const orgs: Member[] = [
   },
 ];
 
-const people: Member[] = [
-  { id: "p1", name: "Dinn Mann", image: dinnImg },
-  { id: "p2", name: "Darnell McDonald", image: darnImg },
-  { id: "p3", name: "Dusty Baker", image: dustyImg },
-  { id: "p4", name: "Jennifer Ford", image: jenImg },
-  { id: "p5", name: "Kevin Davidson", image: kevinImg },
-  { id: "p6", name: "Adam Jones", image: adamImg },
-  { id: "p7", name: "Annie Cross-Codron", image: annieImg },
-  { id: "p8", name: "Dillion Kelly", image: dillionImg },
-  { id: "p9", name: "Lexie Shaver", image: lexieImg },
-];
+// Animation variant for headings
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
 
 export default function Members() {
   const containerRef = useRef<HTMLDivElement>(null);

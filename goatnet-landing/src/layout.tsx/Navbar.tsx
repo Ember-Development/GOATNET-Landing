@@ -1,5 +1,6 @@
 // src/layout.tsx/Navbar.tsx
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Goat from "../assets/images/goat.png";
@@ -29,10 +30,8 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
   useEffect(() => {
     const handleScroll = () => {
       const y = window.scrollY;
-      const isScrolled = y > 50;
-      const isShowing = y < lastScrollY.current || y < 100;
-      setScrolled(isScrolled);
-      setShow(isShowing);
+      setScrolled(y > 50);
+      setShow(y < lastScrollY.current || y < 100);
       lastScrollY.current = y;
       const total = document.body.scrollHeight - window.innerHeight;
       setProgress(total > 0 ? (y / total) * 100 : 0);
@@ -99,26 +98,42 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
               transition={{ type: "spring", stiffness: 120, damping: 12 }}
               whileHover={{ scale: 1.1, rotate: 5 }}
             />
+
+            {/* Desktop Nav */}
             <nav className="hidden md:flex gap-6 font-medium text-sm">
-              {NAV_ITEMS.map(({ id, label }) => (
-                <motion.button
-                  key={id}
-                  onClick={() => scrollToSection(id)}
-                  className="relative py-1 group"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 250, damping: 20 }}
-                >
-                  <span className="text-white group-hover:text-purple-400 transition">
-                    {label}
-                  </span>
-                  <motion.span
-                    layoutId="underline"
-                    className="absolute bottom-0 left-0 h-0.5 bg-purple-400"
-                    style={{ width: activeSection === id ? "100%" : "0" }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </motion.button>
-              ))}
+              {NAV_ITEMS.map(({ id, label }) =>
+                id === "vision" ? (
+                  <Link key={id} to="/about" className="relative py-1 group">
+                    <span className="text-white group-hover:text-purple-400 transition">
+                      {label}
+                    </span>
+                    <motion.span
+                      layoutId="underline"
+                      className="absolute bottom-0 left-0 h-0.5 bg-purple-400"
+                      style={{ width: activeSection === id ? "100%" : "0" }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </Link>
+                ) : (
+                  <motion.button
+                    key={id}
+                    onClick={() => scrollToSection(id)}
+                    className="relative py-1 group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 250, damping: 20 }}
+                  >
+                    <span className="text-white group-hover:text-purple-400 transition">
+                      {label}
+                    </span>
+                    <motion.span
+                      layoutId="underline"
+                      className="absolute bottom-0 left-0 h-0.5 bg-purple-400"
+                      style={{ width: activeSection === id ? "100%" : "0" }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.button>
+                )
+              )}
             </nav>
           </div>
 
@@ -177,17 +192,32 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
             transition={{ duration: 0.3 }}
             className="md:hidden mt-4 flex flex-col gap-4 text-white font-['Inter',sans-serif] font-medium"
           >
-            {NAV_ITEMS.map(({ id, label }) => (
-              <button key={id} onClick={() => scrollToSection(id)}>
-                {label}
-              </button>
-            ))}
+            {NAV_ITEMS.map(({ id, label }) =>
+              id === "vision" ? (
+                <Link
+                  key={id}
+                  to="/about"
+                  onClick={() => setIsOpen(false)}
+                  className="px-4 py-2"
+                >
+                  {label}
+                </Link>
+              ) : (
+                <button
+                  key={id}
+                  onClick={() => scrollToSection(id)}
+                  className="px-4 py-2 text-left"
+                >
+                  {label}
+                </button>
+              )
+            )}
             <button
               onClick={() => {
                 onOpenModal();
                 setIsOpen(false);
               }}
-              className="bg-purple-600 hover:bg-purple-700 px-5 py-2 font-['Inter',sans-serif] rounded-full text-sm"
+              className="bg-purple-600 hover:bg-purple-700 px-5 py-2 rounded-full text-sm"
             >
               Join Waitlist
             </button>
