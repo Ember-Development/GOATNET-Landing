@@ -1,5 +1,5 @@
 import { useState, type JSX } from "react";
-import GoatLogoImg from "../assets/images/Goatnet_Icon_White.png";
+import GoatLogoVideo from "../assets/videos/goatanimation.mov";
 import { PlayCircle, Zap, ShoppingBag, Users } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -102,16 +102,9 @@ export default function SolutionsProcess() {
 
   return (
     <section id="solutions" className="relative py-16 bg-black text-white">
-      {/* Center badge */}
-      <img
-        src={GoatLogoImg}
-        alt="Goat Badge"
-        className="absolute left-1/2 top-[10%] transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 opacity-10 pointer-events-none"
-      />
-
-      <div className="max-w-7xl mx-auto px-8 flex flex-col lg:flex-row justify-between items-start gap-22">
+      <div className="max-w-7xl mx-auto px-8 flex flex-col lg:flex-row justify-between items-center gap-22">
         {/* Left: Tabs + 2x2 card grid (50% width) */}
-        <div className="w-full lg:w-1/2 space-y-8">
+        <div className="w-full lg:w-1/2 space-y-8 z-10">
           <nav className="flex gap-8">
             {tabs.map((tab) => (
               <button
@@ -144,24 +137,24 @@ export default function SolutionsProcess() {
               "This is a filtered place, located above the noise. Point is, prioritize greatness & do so considerately "}
           </p>
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6">
             {items.map((item, idx) => (
               <button
                 key={item.title}
                 onClick={() => setSelectedIndex(idx)}
-                className={`w-full flex flex-col items-start gap-2 p-6 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/20 focus:outline-none transition ${
+                className={`w-full flex flex-col items-start gap-1 sm:gap-2 p-4 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/20 focus:outline-none transition ${
                   selectedIndex === idx
                     ? "ring-2 ring-purple-500"
                     : "hover:ring-2 hover:ring-purple-300"
                 }`}
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   <div className="text-purple-400">{item.icon}</div>
-                  <h3 className="font-semibold text-sm md:text-[16px] text-white">
+                  <h3 className="font-semibold text-xs md:text-sm text-white">
                     {item.title}
                   </h3>
                 </div>
-                <p className="text-gray-300 text-xs md:text-sm mt-2">
+                <p className="text-gray-300 text-[10px] md:text-xs mt-1">
                   {item.tag}
                 </p>
               </button>
@@ -169,20 +162,31 @@ export default function SolutionsProcess() {
           </div>
         </div>
 
-        {/* Right: Only selected solution (50% width) */}
-        <div className="w-full lg:w-1/2 space-y-4">
-          <p className="text-gray-300 text-xl">{activeTab} Solutions</p>
-          <motion.div
-            key={selected.title}
-            initial={{ opacity: 0.5 }}
-            animate={{ opacity: 1 }}
-            className="pl-4 border-l-2 border-purple-400"
-          >
-            <h3 className="text-2xl font-semibold text-white mb-2">
-              {selected.title}
-            </h3>
-            <p className="text-gray-400 text-lg">{selected.desc}</p>
-          </motion.div>
+        {/* Right: Only selected solution with video background */}
+        <div className="w-full lg:w-1/2 space-y-4 relative h-full">
+          {/* Looping video fills background of right pane */}
+          <video
+            src={GoatLogoVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover rounded-lg opacity-100 z-0"
+          />
+
+          <div className="relative z-10 pl-4 border-l-2 border-purple-400 bg-black/60 backdrop-blur-[2px] p-4 rounded-lg h-full">
+            <p className="text-gray-300 text-xl mb-2">{activeTab} Solutions</p>
+            <motion.div
+              key={selected.title}
+              initial={{ opacity: 0.5 }}
+              animate={{ opacity: 1 }}
+            >
+              <h3 className="text-2xl font-semibold text-white mb-2">
+                {selected.title}
+              </h3>
+              <p className="text-gray-400 text-lg">{selected.desc}</p>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

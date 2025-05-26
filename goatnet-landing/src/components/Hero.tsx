@@ -5,7 +5,7 @@ import OverlayCTA from "./ui/overlayCTA";
 export default function Hero() {
   return (
     <section className="relative w-screen overflow-hidden bg-black text-white flex items-center justify-center">
-      <div className="h-[100vh] w-full aspect-[9/16] md:aspect-[5/4]">
+      <div className="h-[100vh] w-[100%] aspect-[1/1] md:aspect-[5/4]">
         <motion.video
           src={heroVideo}
           autoPlay

@@ -68,15 +68,15 @@ export default function About() {
           </motion.div>
 
           <motion.p variants={itemVariants} className="text-gray-300">
-            GOATNET: Your go-to advantage in the new media game. Rooted in
-            storytelling, we provide value through production, distribution, and
-            community engagement.
+            GOATNET: Your go-to advantage in the new media game. .
           </motion.p>
 
           <motion.p variants={itemVariants} className="text-gray-400">
-            We serve organizations and individuals with scalable social and
-            streaming solutions, leveraging AI production, creator tools, and
-            integrated agency services to drive narratives that resonate.
+            Every awesome story starts with purpose. Ours is to serve
+            organizations and individuals who share one: greatness. Goatnet
+            provides provide scalable social and streaming solutions, leveraging
+            AI production, creator tools, and integrated agency services to
+            drive narratives that resonate.
           </motion.p>
 
           <motion.p variants={itemVariants} className="text-gray-400">
