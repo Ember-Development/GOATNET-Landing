@@ -33,7 +33,7 @@ const items: Item[] = [
     image: waves,
     caption:
       "NJ lifeguards compete for history in a legendary summer showdown. Experience the ocean, grit and glory behind the Harvey Cedars Beach Patrol's pursuit of a record-breaking seventh straight LBI Lifeguard Championship on Long Beach Island, NJ",
-    video: "https://www.pbs.org/video/how-the-waves-were-won-zjrtb2/",
+    video: "https://www.youtube.com/watch?v=az5TRfOdgQ8",
     type: "documentary",
     channel: [],
   },
@@ -49,7 +49,7 @@ const items: Item[] = [
   },
   {
     id: 3,
-    title: "Erik Dickerson",
+    title: "The OG RB: Eric Dickerson",
     image: erik,
     caption:
       "Get to know the man behind the visor beyond the records and rushing titles. From falling in love with football on Texas fields to navigating family, faith, and the pain of losing his father, Dickerson shares his journey with honesty and heart. This is a story about purpose, promise, and the power of building something greater.",

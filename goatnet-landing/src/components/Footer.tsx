@@ -1,5 +1,6 @@
 import { FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa";
 import Goat from "../assets/images/goat.png";
+import TaglineImg from "../assets/images/lights.png";
 
 const Footer = () => (
   <footer className="bg-black text-gray-400 border-t border-gray-700">
@@ -8,9 +9,11 @@ const Footer = () => (
       {/* Logo & tagline */}
       <div className="flex flex-col space-y-4 col-span-1 md:col-span-1">
         <img src={Goat} alt="Goatnet" className="h-8" width={200} />
-        <p className="text-sm text-gray-400">
-          Elevating the game through technology and storytelling.
-        </p>
+        <img
+          src={TaglineImg}
+          alt="Elevating the game through technology and storytelling"
+          className="h-6 w-auto"
+        />
         {/* Social Icons */}
         <div className="flex space-x-4 mt-4">
           {/* <a

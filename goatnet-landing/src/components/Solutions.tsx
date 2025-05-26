@@ -36,7 +36,7 @@ const solutionsData: Record<Tab, SolutionItem[]> = {
     {
       title: "Studio & IP",
       tag: "Your Virtual Director’s Chair",
-      desc: "Shape stories with intuitive studio tools. Edit videos, refine graphics, adjust backgrounds, choose soundtracks — and control how, where and when your voice is heard. Podcasts. Pilots. Films. Written works. Goatnet is a launching pad for original IP. Not just finished works, but seeding additional upside.",
+      desc: "Shape stories with intuitive studio tools. Edit videos, refine graphics, adjust backgrounds, choose soundtracks — and control how, where and when your voice is heard. Podcasts. Pilots. Films. Written works. Goatnet is a launching pad for original IP. Not just finished titles, but content that seeds additional upside.",
       icon: <ShoppingBag className="w-6 h-6 text-purple-400" />,
     },
   ],

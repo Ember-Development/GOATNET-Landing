@@ -73,8 +73,11 @@ export default function About() {
 
           <motion.p variants={itemVariants} className="text-gray-400">
             Every awesome story starts with purpose. Ours is to serve
-            organizations and individuals who share one: greatness. Goatnet
-            provides provide scalable social and streaming solutions, leveraging
+            organizations and individuals who share one: greatness.
+          </motion.p>
+
+          <motion.p variants={itemVariants} className="text-gray-400">
+            Goatnet provides scalable social and streaming solutions, leveraging
             AI production, creator tools, and integrated agency services to
             drive narratives that resonate.
           </motion.p>

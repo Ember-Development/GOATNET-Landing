@@ -10,7 +10,7 @@ const NAV_ITEMS = [
   { id: "showcase", label: "Attractions" },
   { id: "credentials", label: "Credentials" },
   { id: "partners", label: "Partners" },
-  { id: "vision", label: "Vision" },
+  // { id: "vision", label: "Vision" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -197,7 +197,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
                   key={id}
                   to="/about"
                   onClick={() => setIsOpen(false)}
-                  className="px-4 py-2"
+                  className=" hidden px-4 py-2"
                 >
                   {label}
                 </Link>
