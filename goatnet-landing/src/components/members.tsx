@@ -72,7 +72,6 @@ const item = {
 
 export default function Members() {
   const containerRef = useRef<HTMLDivElement>(null);
-
   const scroll = (dir: "left" | "right") => {
     const c = containerRef.current;
     if (!c) return;
@@ -85,49 +84,62 @@ export default function Members() {
   return (
     <section
       id="credentials"
-      className="relative bg-black py-14 overflow-hidden"
+      className="relative bg-black py-10 sm:py-14 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* — Heading */}
         <motion.div
           variants={item}
           initial="hidden"
           animate="show"
-          className="mb-6 flex items-center justify-between"
+          className="mb-4 sm:mb-6 flex items-center justify-between"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white">
             Credentials
           </h2>
-          <button className="px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold rounded-full hover:opacity-90 transition">
+          <button className="px-4 py-1 sm:px-6 sm:py-2 bg-gradient-to-r from-purple-600 to-blue-500 text-sm sm:text-base text-white font-semibold rounded-full hover:opacity-90 transition">
             Join Waitlist
           </button>
         </motion.div>
-        <motion.p variants={item} className="text-gray-300 mb-12">
+
+        <motion.p
+          variants={item}
+          className="text-gray-300 mb-8 sm:mb-12 text-sm sm:text-base"
+        >
           Goatnet has Guest, Select & Goat memberships with tiered status.
           Public launch coming soon. Sign up and stay in the loop for key
           milestones.
         </motion.p>
 
-        <div className="relative mb-24">
+        {/* — Carousel */}
+        <div className="relative mb-12 sm:mb-24">
           <button
             onClick={() => scroll("left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 rounded-full hover:bg-black/70"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 bg-black/50 rounded-full hover:bg-black/70"
           >
-            <ChevronLeft className="w-6 h-6 text-white" />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </button>
           <button
             onClick={() => scroll("right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 rounded-full hover:bg-black/70"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 bg-black/50 rounded-full hover:bg-black/70"
           >
-            <ChevronRight className="w-6 h-6 text-white" />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </button>
           <div
             ref={containerRef}
-            className="flex space-x-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory"
+            className="flex space-x-3 sm:space-x-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory py-2"
           >
             {people.map((m) => (
               <div
                 key={m.id}
-                className="relative min-w-[200px] lg:min-w-[240px] snap-start rounded-xl overflow-hidden shadow-lg"
+                className="
+                  relative
+                  snap-start
+                  rounded-xl
+                  overflow-hidden
+                  shadow-lg
+                  min-w-[140px] sm:min-w-[200px] lg:min-w-[240px]
+                "
               >
                 <img
                   src={m.image}
@@ -139,41 +151,46 @@ export default function Members() {
           </div>
         </div>
 
+        {/* — Partners */}
         <motion.div
           id="partners"
           variants={item}
           initial="hidden"
           animate="show"
-          className="mb-6 flex items-center justify-between"
+          className="mb-4 sm:mb-6 flex items-center justify-between"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white">
             Partners
           </h2>
-          <button className="px-6 py-2 border border-white/30 text-white font-semibold rounded-full hover:bg-white/10 transition">
+          <button className="px-4 py-1 sm:px-6 sm:py-2 border border-white/30 text-sm sm:text-base text-white font-semibold rounded-full hover:bg-white/10 transition">
             Contact Us
           </button>
         </motion.div>
-        <motion.p variants={item} className="text-gray-300 mb-12">
+
+        <motion.p
+          variants={item}
+          className="text-gray-300 mb-8 sm:mb-12 text-sm sm:text-base"
+        >
           We offer flexible models based on goals and needs, including
           shared-cost approaches with buy-in strategies involving sponsors,
           boosters and external networks.
         </motion.p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
           {orgs.map((m) => (
             <a
               key={m.id}
               href={m.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center bg-white/10 backdrop-blur-lg border border-white/20 rounded-lg p-6 hover:scale-105 transition-transform"
+              className="flex flex-col items-center bg-white/10 backdrop-blur-lg border border-white/20 rounded-lg p-4 sm:p-6 hover:scale-105 transition-transform"
             >
               <img
                 src={m.image}
                 alt={m.name}
-                className="h-20 object-contain mb-4"
+                className="h-16 sm:h-20 object-contain mb-3 sm:mb-4"
               />
-              <span className="text-white font-semibold text-center">
+              <span className="text-white font-semibold text-center text-sm sm:text-base">
                 {m.name}
               </span>
             </a>

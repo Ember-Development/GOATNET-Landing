@@ -1,4 +1,3 @@
-// src/sections/LandingPage.tsx
 import { useState } from "react";
 import Navbar from "../layout.tsx/Navbar";
 import Hero from "../components/Hero";

@@ -115,7 +115,7 @@ const modalVariants = {
   exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
 };
 
-const item = {
+const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
@@ -133,27 +133,48 @@ export default function Showcase() {
   };
 
   return (
-    <section id="showcase" className="relative bg-black py-20">
-      <div className="max-w-7xl mx-auto px-6">
-        <motion.div variants={item} className="mb-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
+    <section id="showcase" className="relative bg-black py-12 sm:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div variants={itemVariants} className="mb-4 sm:mb-6">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white">
             Attractions
           </h2>
-          <div className="w-20 h-1 bg-purple-500 mt-2 rounded-full" />
+          <div className="w-12 sm:w-20 h-1 bg-purple-500 mt-2 rounded-full" />
         </motion.div>
-        <motion.p variants={item} className="text-gray-300 mb-12">
+
+        <motion.p
+          variants={itemVariants}
+          className="text-gray-300 text-sm sm:text-base mb-6 sm:mb-12"
+        >
           What are attractions? Content, products and experiences you offer or
           endorse, the things to which people in your network are drawn.
         </motion.p>
 
         {/* Carousel with arrows */}
         <div className="relative">
+          {/* Mobile arrow */}
+          <button
+            onClick={() => scroll("left")}
+            className="flex md:hidden absolute left-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/40 rounded-full hover:bg-black/60"
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          </button>
+          {/* Desktop arrow */}
           <button
             onClick={() => scroll("left")}
             className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 p-3 bg-black/50 rounded-full hover:bg-black/70"
           >
             <ChevronLeft className="w-6 h-6 text-white" />
           </button>
+
+          {/* Mobile arrow */}
+          <button
+            onClick={() => scroll("right")}
+            className="flex md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/40 rounded-full hover:bg-black/60"
+          >
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          </button>
+          {/* Desktop arrow */}
           <button
             onClick={() => scroll("right")}
             className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 p-3 bg-black/50 rounded-full hover:bg-black/70"
@@ -163,12 +184,19 @@ export default function Showcase() {
 
           <div
             ref={containerRef}
-            className="flex space-x-8 overflow-x-auto snap-x snap-mandatory scroll-hide"
+            className="flex space-x-4 sm:space-x-8 overflow-x-auto snap-x snap-mandatory scroll-hide py-2"
           >
             {items.map((item) => (
               <motion.div
                 key={item.id}
-                className="relative snap-center min-w-[240px] md:min-w-[280px] lg:min-w-[320px] rounded-lg overflow-hidden cursor-pointer"
+                variants={itemVariants}
+                initial="hidden"
+                animate="show"
+                className="
+                  relative snap-center
+                  min-w-[180px] sm:min-w-[240px] md:min-w-[280px] lg:min-w-[320px]
+                  rounded-lg overflow-hidden cursor-pointer
+                "
                 onClick={() => {
                   setModalItem(item);
                   setPlayVideo(false);
@@ -176,8 +204,8 @@ export default function Showcase() {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                {/* 2:3 Aspect-ratio box via padding-bottom (3/2 = 150%) */}
-                <div className="w-full relative pb-[150%] bg-gray-800">
+                {/* Taller on mobile, original ratio on sm+ */}
+                <div className="w-full relative pb-[170%] sm:pb-[150%] bg-gray-800">
                   <img
                     src={item.image}
                     alt={item.title}
@@ -186,8 +214,8 @@ export default function Showcase() {
                   />
                 </div>
 
-                <div className="mt-2 text-center">
-                  <span className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500 font-semibold uppercase">
+                <div className="mt-1 sm:mt-2 text-center">
+                  <span className="inline-block text-sm sm:text-base bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500 font-semibold uppercase">
                     {item.title}
                   </span>
                 </div>
@@ -199,21 +227,23 @@ export default function Showcase() {
         <AnimatePresence>
           {modalItem && (
             <motion.div
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-2"
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-6"
               variants={backdropVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
             >
               <motion.div
-                className="relative w-full max-w-2xl h-[80vh] rounded-3xl overflow-hidden bg-cover bg-center"
+                className="
+                  relative w-full max-w-md sm:max-w-2xl
+                  h-[70vh] sm:h-[80vh]
+                  rounded-3xl overflow-hidden bg-cover bg-center
+                "
                 style={{ backgroundImage: `url(${modalItem.image})` }}
                 variants={modalVariants}
               >
-                {/* Dark overlay for contrast */}
                 <div className="absolute inset-0 bg-black/60" />
 
-                {/* Close button */}
                 <button
                   className="absolute top-4 right-4 text-white hover:text-gray-300 z-10"
                   onClick={() => setModalItem(null)}
@@ -221,29 +251,28 @@ export default function Showcase() {
                   <X size={28} />
                 </button>
 
-                {/* Content panel—auto height, no scroll */}
                 {!playVideo && (
                   <motion.div
                     key="modalContent"
-                    className="absolute bottom-0 w-full p-6 text-white z-10"
+                    className="absolute bottom-0 w-full p-4 sm:p-6 text-white z-10"
                     initial={{ opacity: 1 }}
                     animate={{ opacity: 1, transition: { duration: 0.8 } }}
                     exit={{ opacity: 0, transition: { duration: 0.8 } }}
                   >
-                    <h1 className="text-4xl md:text-5xl font-bold mb-3 drop-shadow-lg">
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-3 drop-shadow-lg">
                       {modalItem.title}
                     </h1>
-                    <div className="flex items-center gap-2 mb-5">
+                    <div className="flex items-center gap-2 mb-4 sm:mb-5">
                       <span className="px-2 py-1 bg-white/20 rounded text-xs">
                         {modalItem.type}
                       </span>
                     </div>
-                    <p className="text-gray-100 mb-6 leading-relaxed">
+                    <p className="text-gray-100 text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed line-clamp-4 sm:line-clamp-none">
                       {modalItem.caption}
                     </p>
                     <div className="flex items-center gap-4">
                       <button
-                        className="inline-flex items-center gap-2 px-5 py-2 font-semibold text-white rounded-full bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90"
+                        className="inline-flex items-center gap-2 px-4 sm:px-5 py-1 sm:py-2 font-semibold text-white rounded-full bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 text-sm sm:text-base"
                         onClick={() => setPlayVideo(true)}
                       >
                         <PlayCircle className="w-5 h-5" /> Play
@@ -251,13 +280,12 @@ export default function Showcase() {
                       <img
                         src={badge}
                         alt="badge goat"
-                        className="absolute bottom-6 right-6 w-8 h-8 opacity-80 pointer-events-none"
+                        className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 w-6 sm:w-8 h-6 sm:h-8 opacity-80 pointer-events-none"
                       />
                     </div>
                   </motion.div>
                 )}
 
-                {/* Video overlay (unchanged) */}
                 {playVideo && (
                   <div className="absolute inset-0 bg-black">
                     <iframe

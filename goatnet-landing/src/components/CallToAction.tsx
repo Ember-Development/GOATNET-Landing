@@ -47,7 +47,7 @@ export default function CallToAction({ onOpenModal }: CallToActionProps) {
               type: "spring",
               stiffness: 300,
             }}
-            className="relative inline-flex items-center px-8 py-3 font-semibold text-sm uppercase tracking-wide text-white rounded-full border border-gray-500 hover:border-white hover:bg-white/10 transition"
+            className="relative text-center md:inline-flex items-center px-8 py-3 font-semibold text-sm uppercase tracking-wide text-white rounded-full border border-gray-500 hover:border-white hover:bg-white/10 transition"
           >
             Announce Yourself
             <span

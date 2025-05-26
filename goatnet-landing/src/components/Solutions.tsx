@@ -120,7 +120,7 @@ export default function SolutionsProcess() {
                   setActiveTab(tab);
                   setSelectedIndex(0);
                 }}
-                className={`relative text-lg md:text-2xl font-semibold pb-1 ${
+                className={`relative text-sm md:text-2xl font-semibold pb-1 ${
                   activeTab === tab ? "text-white" : "text-gray-400"
                 }`}
               >

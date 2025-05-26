@@ -1,4 +1,3 @@
-// src/layout.tsx/Navbar.tsx
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -190,7 +189,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden mt-4 flex flex-col gap-4 text-white font-['Inter',sans-serif] font-medium"
+            className="md:hidden relative z-50 mt-4 flex flex-col gap-4 text-white font-['Inter',sans-serif] font-medium"
           >
             {NAV_ITEMS.map(({ id, label }) =>
               id === "vision" ? (
