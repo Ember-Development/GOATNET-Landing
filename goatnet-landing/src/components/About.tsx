@@ -9,7 +9,7 @@ function getYouTubeID(url: string) {
 
 // Showcase story for video embed
 const story = {
-  link: "https://www.youtube.com/watch?v=SfYZUrJfMII",
+  link: "https://www.youtube.com/watch?v=tGG_DmkDALQ",
 };
 
 // Animation variants

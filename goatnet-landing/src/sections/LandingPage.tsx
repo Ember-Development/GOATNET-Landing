@@ -12,9 +12,23 @@ import UserTypeModal, { type UserInfo } from "../components/UserTypeModal";
 export default function LandingPage() {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handleUserSubmit = (data: UserInfo) => {
-    console.log("Submitted user info:", data);
-    // TODO: send to your API or newsletter service
+  const handleSubmit = async (data: UserInfo) => {
+    try {
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbwJfGXgtTLeKIegi_WfV02uroAszJqf_hUN9_dwDkNB8u0aNeEW7xREtwemx6dN8n1-8Q/exec",
+        {
+          method: "POST",
+          mode: "no-cors", // Required for Apps Script, disables error reporting
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      console.log("Submitted to Google Sheet:", data);
+    } catch (error) {
+      console.error("Error submitting form data:", error);
+    }
   };
 
   return (
@@ -25,13 +39,13 @@ export default function LandingPage() {
       <Solutions />
       <Showcase />
       <CallToAction onOpenModal={() => setModalOpen(true)} />
-      <Members />
+      <Members onOpenModal={() => setModalOpen(true)} />
       <Footer />
 
       <UserTypeModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
-        onSubmit={handleUserSubmit}
+        onSubmit={handleSubmit}
       />
     </>
   );

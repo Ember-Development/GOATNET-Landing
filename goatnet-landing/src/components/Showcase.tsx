@@ -4,11 +4,11 @@ import { AnimatePresence, motion } from "motion/react";
 import badge from "../assets/images/Goatnet_Icon_White.png";
 import waves from "../assets/images/waves.png";
 import erik from "../assets/images/erik.png";
-import three from "../assets/images/three-minutes.png";
+import three from "../assets/images/three-minutes-1.png";
 import virgina from "../assets/images/virginia.jpg";
 import marshall from "../assets/images/marshall-poster.png";
-import Bo from "../assets/images/bo-1.png";
-import Bazuca from "../assets/images/bazuca.png";
+import Bo from "../assets/images/bo-2.png";
+import Bazuca from "../assets/images/bazucabros.png";
 
 // Helper to extract YouTube ID
 function getYouTubeID(url: string) {

@@ -9,7 +9,6 @@ export type Member = {
   link?: string;
 };
 
-// ——— DYNAMIC IMAGE IMPORT (Webpack / CRA) ———
 function fileNameToName(fn: string) {
   const name = fn.replace(/\.(png|jpe?g|svg)$/, "");
   return name
@@ -18,21 +17,23 @@ function fileNameToName(fn: string) {
     .join(" ");
 }
 
-// Dynamically import all images in ../assets/images
 const images = import.meta.glob("../assets/creds/*.{png,jpg,jpeg,svg}", {
   eager: true,
   import: "default",
 });
 
-// Build people array dynamically from all images in ../assets/images
 const people: Member[] = Object.entries(images).map(([path, image]) => ({
   id: path.split("/").pop() || "",
   name: fileNameToName(path.split("/").pop() || ""),
   image: image as string,
 }));
 
-// Organizations (static imports for external URLs or special images)
+// Organizations (static  for external URLs or special images)
 import HBCU from "../assets/images/hbcu.png";
+
+interface MemberProps {
+  onOpenModal: () => void;
+}
 
 const orgs: Member[] = [
   {
@@ -70,7 +71,7 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-export default function Members() {
+export default function Members({ onOpenModal }: MemberProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const scroll = (dir: "left" | "right") => {
     const c = containerRef.current;
@@ -97,7 +98,10 @@ export default function Members() {
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white">
             Credentials
           </h2>
-          <button className="px-4 py-1 sm:px-6 sm:py-2 bg-gradient-to-r from-purple-600 to-blue-500 text-sm sm:text-base text-white font-semibold rounded-full hover:opacity-90 transition">
+          <button
+            onClick={onOpenModal}
+            className="px-4 py-1 sm:px-6 sm:py-2 bg-gradient-to-r from-purple-600 to-blue-500 text-sm sm:text-base text-white font-semibold rounded-full hover:opacity-90 transition"
+          >
             Join Waitlist
           </button>
         </motion.div>
@@ -162,9 +166,12 @@ export default function Members() {
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white">
             Partners
           </h2>
-          <button className="px-4 py-1 sm:px-6 sm:py-2 border border-white/30 text-sm sm:text-base text-white font-semibold rounded-full hover:bg-white/10 transition">
+          <a
+            href="mailto:people@goatnet.com?subject=Partnership Inquiry&body=Hi Goatnet team,"
+            className="px-4 py-1 sm:px-6 sm:py-2 border border-white/30 text-sm sm:text-base text-white font-semibold rounded-full hover:bg-white/10 transition"
+          >
             Contact Us
-          </button>
+          </a>
         </motion.div>
 
         <motion.p

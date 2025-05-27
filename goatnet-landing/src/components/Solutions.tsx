@@ -101,9 +101,12 @@ export default function SolutionsProcess() {
   const selected = items[selectedIndex];
 
   return (
-    <section id="solutions" className="relative py-16 bg-black text-white">
-      <div className="max-w-7xl mx-auto px-8 flex flex-col lg:flex-row justify-between items-center gap-22">
-        {/* Left: Tabs + 2x2 card grid (50% width) */}
+    <section
+      id="solutions"
+      className="relative py-20 bg-black text-white overflow-hidden"
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-8 flex flex-col lg:flex-row gap-12 items-start">
+        {/* Left Side: Tabs + Grid */}
         <div className="w-full lg:w-1/2 space-y-8 z-10">
           <nav className="flex gap-8">
             {tabs.map((tab) => (
@@ -113,7 +116,7 @@ export default function SolutionsProcess() {
                   setActiveTab(tab);
                   setSelectedIndex(0);
                 }}
-                className={`relative text-sm md:text-2xl font-semibold pb-1 ${
+                className={`relative text-base md:text-2xl font-semibold pb-1 transition ${
                   activeTab === tab ? "text-white" : "text-gray-400"
                 }`}
               >
@@ -128,63 +131,81 @@ export default function SolutionsProcess() {
             ))}
           </nav>
 
-          <p className="text-gray-300 font-['Inter',sans-serif] mb-6 max-w-dvw leading-relaxed">
-            {activeTab === "Storytelling" &&
-              "Share your why & celebrate others like never before. Set the tone, timeless and relevant, on your journey"}
-            {activeTab === "Innovation" &&
-              "Your online presence should impress. As tech evolves, advancing with it is essential"}
-            {activeTab === "Community" &&
-              "This is a filtered place, located above the noise. Point is, prioritize greatness & do so considerately "}
+          <p className="text-gray-300 font-light text-sm md:text-base leading-relaxed max-w-xl">
+            {
+              {
+                Storytelling:
+                  "Share your why & celebrate others like never before. Set the tone, timeless and relevant, on your journey.",
+                Innovation:
+                  "Your online presence should impress. As tech evolves, advancing with it is essential.",
+                Community:
+                  "This is a filtered place, located above the noise. Point is, prioritize greatness & do so considerately.",
+              }[activeTab]
+            }
           </p>
 
-          <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6">
+          <div className="grid grid-cols-2 gap-4 md:gap-6">
             {items.map((item, idx) => (
-              <button
+              <motion.button
                 key={item.title}
                 onClick={() => setSelectedIndex(idx)}
-                className={`w-full flex flex-col items-start gap-1 sm:gap-2 p-4 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/20 focus:outline-none transition ${
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1, duration: 0.4 }}
+                viewport={{ once: true }}
+                className={`w-full flex flex-col items-start gap-2 p-4 md:p-6 rounded-2xl border backdrop-blur-md transition ${
                   selectedIndex === idx
-                    ? "ring-2 ring-purple-500"
-                    : "hover:ring-2 hover:ring-purple-300"
+                    ? "ring-2 ring-purple-500 ring-offset-2 ring-offset-black shadow-lg shadow-purple-400/20 bg-white/10 border-white/30"
+                    : "hover:ring-2 hover:ring-purple-300 bg-white/5 border-white/20"
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <div className="text-purple-400">{item.icon}</div>
-                  <h3 className="font-semibold text-xs md:text-sm text-white">
+                  <h3 className="font-semibold text-sm md:text-base text-white">
                     {item.title}
                   </h3>
                 </div>
-                <p className="text-gray-300 text-[10px] md:text-xs mt-1">
-                  {item.tag}
-                </p>
-              </button>
+                <p className="text-gray-400 text-xs md:text-sm">{item.tag}</p>
+              </motion.button>
             ))}
           </div>
         </div>
 
-        {/* Right: Only selected solution with video background */}
-        <div className="w-full lg:w-1/2 space-y-4 relative h-full">
-          {/* Looping video fills background of right pane */}
-          <video
-            src={GoatLogoVideo}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover rounded-lg opacity-100 z-0"
-          />
+        {/* Right Side: Video + Gradient Reveal + Content */}
+        <div className="w-full lg:w-1/2">
+          <div className="relative w-full aspect-[3/4] sm:aspect-square md:aspect-video overflow-hidden rounded-2xl shadow-2xl border border-white/10">
+            {/* Video Layer */}
+            <video
+              src={GoatLogoVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover z-0"
+            />
 
-          <div className="relative z-10 pl-4 border-l-2 border-purple-400 bg-black/60 backdrop-blur-[2px] p-4 rounded-lg h-full">
-            <p className="text-gray-300 text-xl mb-2">{activeTab} Solutions</p>
+            {/* Gradient Reveal Layer */}
+            <div className="absolute inset-0 z-10 pointer-events-none">
+              <div className="w-full h-full bg-gradient-to-l from-black/20 via-black/50 to-black/80" />
+            </div>
+
+            {/* Text Content Layer */}
             <motion.div
               key={selected.title}
-              initial={{ opacity: 0.5 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="relative z-20 h-full flex flex-col justify-center p-6 md:p-8"
             >
-              <h3 className="text-2xl font-semibold text-white mb-2">
+              <p className="text-gray-300 text-lg md:text-xl mb-2">
+                {activeTab} Solutions
+              </p>
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
                 {selected.title}
               </h3>
-              <p className="text-gray-400 text-lg">{selected.desc}</p>
+              <p className="text-gray-300 text-sm md:text-base leading-relaxed">
+                {selected.desc}
+              </p>
             </motion.div>
           </div>
         </div>

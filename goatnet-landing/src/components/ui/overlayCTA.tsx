@@ -44,7 +44,41 @@ export default function OverlayCTA() {
         </div>
 
         {/* Form */}
-        <form className="flex items-center bg-[#131314] border border-neutral-500 rounded-full overflow-hidden px-3 py-2 w-full max-w-lg shadow-md space-x-2 sm:space-x-4">
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            const form = e.target as HTMLFormElement;
+            const email = form.email.value;
+
+            try {
+              await fetch(
+                "https://script.google.com/macros/s/AKfycbwJfGXgtTLeKIegi_WfV02uroAszJqf_hUN9_dwDkNB8u0aNeEW7xREtwemx6dN8n1-8Q/exec",
+                {
+                  method: "POST",
+                  mode: "no-cors",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    userType: "newsletter-only",
+                    name: "",
+                    email,
+                    organization: "",
+                    newsletter: true,
+                  }),
+                }
+              );
+
+              // Clear form
+              form.reset();
+
+              // Optional: confirm to user
+              alert("You're subscribed! 🎉");
+            } catch (error) {
+              console.error("Error submitting email:", error);
+              alert("Something went wrong. Try again?");
+            }
+          }}
+          className="flex items-center bg-[#131314] border border-neutral-500 rounded-full overflow-hidden px-3 py-2 w-full max-w-lg shadow-md space-x-2 sm:space-x-4"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -61,6 +95,7 @@ export default function OverlayCTA() {
           </svg>
           <input
             type="email"
+            name="email"
             placeholder="Enter email"
             className="flex-1 min-w-0 bg-transparent text-white placeholder-gray-400 focus:outline-none px-2"
           />
