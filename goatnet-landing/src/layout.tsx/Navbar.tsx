@@ -133,6 +133,18 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
                   </motion.button>
                 )
               )}
+              <motion.a
+                href="https://www.supergoods.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative py-1 group"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 250, damping: 20 }}
+              >
+                <span className="text-white group-hover:text-purple-400 transition">
+                  Supergoods
+                </span>
+              </motion.a>
             </nav>
           </div>
 
@@ -211,6 +223,15 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
                 </button>
               )
             )}
+            <a
+              href="https://www.supergoods.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 text-left"
+            >
+              Supergoods
+            </a>
+
             <button
               onClick={() => {
                 onOpenModal();
