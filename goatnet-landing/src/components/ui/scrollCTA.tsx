@@ -25,7 +25,7 @@ export default function ScrollCTA() {
       initial="hidden"
       animate="show"
       variants={container}
-      className="fixed top-[1px] left-0 w-full z-40 bg-black/60 backdrop-blur-md px-2 md:px-4 py-2 shadow"
+      className="hidden md:block fixed top-[1px] left-0 w-full z-40 bg-black/60 backdrop-blur-md px-2 md:px-4 py-2 shadow"
     >
       <div className="max-w-screen-2xl mx-auto flex flex-col md:flex-row items-center justify-between gap-y-2 gap-x-4 w-full">
         {/* Logo + Message */}

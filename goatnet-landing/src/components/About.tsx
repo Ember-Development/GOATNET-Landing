@@ -49,7 +49,7 @@ export default function About() {
     <section
       id="about"
       ref={ref}
-      className="relative bg-black overflow-hidden py-20"
+      className="relative bg-black overflow-hidden py-5 md:py-20"
     >
       <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-black pointer-events-none" />
 

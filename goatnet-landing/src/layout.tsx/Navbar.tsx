@@ -83,7 +83,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
           fixed top-0 w-full z-50 bg-black/70 backdrop-blur-md
           transform transition-all duration-300
           ${scrolled ? "py-2" : "py-4"}
-          ${show ? "translate-y-0" : "-translate-y-full"}
+          ${show ? "translate-y-0" : "md:-translate-y-full"}
         `}
       >
         <div className="max-w-screen mx-[2rem] md:mx-[4rem] flex items-center justify-between">
@@ -142,7 +142,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
                 transition={{ type: "spring", stiffness: 250, damping: 20 }}
               >
                 <span className="text-white group-hover:text-purple-400 transition">
-                  Supergoods
+                  SuperGoods Shop
                 </span>
               </motion.a>
             </nav>
@@ -201,7 +201,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden relative z-50 mt-4 flex flex-col gap-4 text-white font-['Inter',sans-serif] font-medium"
+            className="md:hidden relative z-50 mt-4 px-4 flex flex-col gap-4 text-white font-['Inter',sans-serif] font-medium"
           >
             {NAV_ITEMS.map(({ id, label }) =>
               id === "vision" ? (
@@ -229,7 +229,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
               rel="noopener noreferrer"
               className="px-4 py-2 text-left"
             >
-              Supergoods
+              SuperGoods Shop
             </a>
 
             <button

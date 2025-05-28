@@ -103,7 +103,7 @@ export default function SolutionsProcess() {
   return (
     <section
       id="solutions"
-      className="relative py-20 bg-black text-white overflow-hidden"
+      className="relative py-5 md:py-20 bg-black text-white overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-8 flex flex-col lg:flex-row gap-12 items-start">
         {/* Left Side: Tabs + Grid */}
@@ -173,7 +173,7 @@ export default function SolutionsProcess() {
 
         {/* Right Side: Video + Gradient Reveal + Content */}
         <div className="w-full lg:w-1/2">
-          <div className="relative w-full aspect-[3/4] sm:aspect-square md:aspect-video overflow-hidden rounded-2xl shadow-2xl border border-white/10">
+          <div className="relative w-full aspect-[20%] sm:aspect-square md:aspect-video overflow-hidden rounded-2xl shadow-2xl border border-white/10">
             {/* Video Layer */}
             <video
               src={GoatLogoVideo}
