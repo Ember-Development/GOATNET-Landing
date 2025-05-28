@@ -29,7 +29,7 @@ export default function OverlayCTA() {
         <img
           src={GoatCard}
           alt="GOATNET Logo"
-          className="w-16 h-16 sm:w-24 sm:h-24 object-contain mx-auto sm:mx-0"
+          className="hidden md:block w-16 h-16 sm:w-24 sm:h-24 object-contain mx-auto sm:mx-0"
         />
 
         {/* Text Block */}

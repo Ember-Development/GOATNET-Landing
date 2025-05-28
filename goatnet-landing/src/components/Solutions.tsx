@@ -18,7 +18,7 @@ const solutionsData: Record<Tab, SolutionItem[]> = {
     {
       title: "Narrative",
       tag: "Your Legacy in Motion",
-      desc: "Because storytelling is about how it started, how it’s going, what’s in store AND how it’s received. We help you convey narratives that are relevant, capturing pivotal highlights and framing desired updates and ambitions. You’re the interviewee, as are sources you recommend. Assets are organized. Your network forms & grows as you choose.",
+      desc: "Because storytelling is about how it started, how it’s going, what’s in store AND how it’s received. We help you convey narratives that are relevant, capturing pivotal highlights and framing desired updates and ambitions. You are the subject, as are ideas and people you recommend. Assets are organized. Your network forms & grows as you choose.",
       icon: <Zap className="w-6 h-6 text-purple-400" />,
     },
     {

@@ -68,7 +68,7 @@ export default function About() {
           </motion.div>
 
           <motion.p variants={itemVariants} className="text-gray-300">
-            GOATNET: Your go-to advantage in the new media game. .
+            GOATNET: Your go-to advantage in the new media game.
           </motion.p>
 
           <motion.p variants={itemVariants} className="text-gray-400">
