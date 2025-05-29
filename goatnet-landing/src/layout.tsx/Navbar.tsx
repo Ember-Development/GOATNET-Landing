@@ -99,7 +99,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
             />
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex gap-6 font-medium text-sm">
+            <nav className="hidden lg:flex gap-6 font-medium text-sm">
               {NAV_ITEMS.map(({ id, label }) =>
                 id === "vision" ? (
                   <Link key={id} to="/about" className="relative py-1 group">
@@ -149,7 +149,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
           </div>
 
           {/* Join Waitlist */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <div className="relative ml-3 group">
               <div
                 className="absolute inset-0 rounded-full blur-[5px] opacity-80 group-hover:opacity-100 transition"
@@ -174,7 +174,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
           {/* Mobile Toggle */}
           <motion.button
             onClick={toggleMenu}
-            className="md:hidden text-white p-2 relative overflow-hidden"
+            className="lg:hidden text-white p-2 relative overflow-hidden"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
             <motion.span
@@ -201,7 +201,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden relative z-50 mt-4 px-4 flex flex-col gap-4 text-white font-['Inter',sans-serif] font-medium"
+            className="lg:hidden relative z-50 mt-4 px-4 flex flex-col gap-4 text-white font-['Inter',sans-serif] font-medium"
           >
             {NAV_ITEMS.map(({ id, label }) =>
               id === "vision" ? (

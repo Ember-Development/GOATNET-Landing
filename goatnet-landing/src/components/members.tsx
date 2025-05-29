@@ -28,8 +28,9 @@ const people: Member[] = Object.entries(images).map(([path, image]) => ({
   image: image as string,
 }));
 
-// Organizations (static  for external URLs or special images)
 import HBCU from "../assets/images/hbcu.png";
+import Harvey from "../assets/images/harvey.jpg";
+import Health from "../assets/images/sport-health.png";
 
 interface MemberProps {
   onOpenModal: () => void;
@@ -63,21 +64,40 @@ const orgs: Member[] = [
     image: HBCU,
     link: "https://hbcuiconexchange.org",
   },
+  {
+    id: "org5",
+    name: "Harvey Cedars Beach Patrol",
+    image: Harvey,
+    link: "https://www.harveycedars.org/cn/webpage.cfm?tpid=14966",
+  },
+  {
+    id: "org6",
+    name: "Sports Health In The City",
+    image: Health,
+    link: "https://www.sportsandhealthnyc.org/",
+  },
 ];
 
-// Animation variant for headings
 const item = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 export default function Members({ onOpenModal }: MemberProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const scroll = (dir: "left" | "right") => {
-    const c = containerRef.current;
-    if (!c) return;
-    c.scrollBy({
-      left: dir === "left" ? -c.offsetWidth * 0.8 : c.offsetWidth * 0.8,
+  const peopleRef = useRef<HTMLDivElement>(null);
+  const partnersRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (
+    ref: React.RefObject<HTMLDivElement | null>,
+    dir: "left" | "right"
+  ) => {
+    const container = ref.current;
+    if (!container) return;
+    container.scrollBy({
+      left:
+        dir === "left"
+          ? -container.offsetWidth * 0.8
+          : container.offsetWidth * 0.8,
       behavior: "smooth",
     });
   };
@@ -85,10 +105,10 @@ export default function Members({ onOpenModal }: MemberProps) {
   return (
     <section
       id="credentials"
-      className="relative bg-black py-10 sm:py-14 overflow-hidden"
+      className="relative bg-black py-10 md:py-15 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* — Heading */}
+        {/* Heading */}
         <motion.div
           variants={item}
           initial="hidden"
@@ -115,35 +135,28 @@ export default function Members({ onOpenModal }: MemberProps) {
           milestones.
         </motion.p>
 
-        {/* — Carousel */}
+        {/* Credentials Carousel */}
         <div className="relative mb-12 sm:mb-24">
           <button
-            onClick={() => scroll("left")}
+            onClick={() => scroll(peopleRef, "left")}
             className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 bg-black/50 rounded-full hover:bg-black/70"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </button>
           <button
-            onClick={() => scroll("right")}
+            onClick={() => scroll(peopleRef, "right")}
             className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 bg-black/50 rounded-full hover:bg-black/70"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </button>
           <div
-            ref={containerRef}
+            ref={peopleRef}
             className="flex space-x-3 sm:space-x-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory py-2"
           >
             {people.map((m) => (
               <div
                 key={m.id}
-                className="
-                  relative
-                  snap-start
-                  rounded-xl
-                  overflow-hidden
-                  shadow-lg
-                  min-w-[140px] sm:min-w-[200px] lg:min-w-[240px]
-                "
+                className="relative snap-start rounded-xl overflow-hidden shadow-lg min-w-[140px] sm:min-w-[200px] lg:min-w-[240px]"
               >
                 <img
                   src={m.image}
@@ -155,7 +168,7 @@ export default function Members({ onOpenModal }: MemberProps) {
           </div>
         </div>
 
-        {/* — Partners */}
+        {/* Partners Header */}
         <motion.div
           id="partners"
           variants={item}
@@ -183,25 +196,43 @@ export default function Members({ onOpenModal }: MemberProps) {
           boosters and external networks.
         </motion.p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
-          {orgs.map((m) => (
-            <a
-              key={m.id}
-              href={m.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center bg-white/10 backdrop-blur-lg border border-white/20 rounded-lg p-4 sm:p-6 hover:scale-105 transition-transform"
-            >
-              <img
-                src={m.image}
-                alt={m.name}
-                className="h-16 sm:h-20 object-contain mb-3 sm:mb-4"
-              />
-              <span className="text-white font-semibold text-center text-sm sm:text-base">
-                {m.name}
-              </span>
-            </a>
-          ))}
+        {/* Partners Carousel */}
+        <div className="relative mb-12 sm:mb-24">
+          <button
+            onClick={() => scroll(partnersRef, "left")}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 bg-black/50 rounded-full hover:bg-black/70"
+          >
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+          </button>
+          <button
+            onClick={() => scroll(partnersRef, "right")}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 bg-black/50 rounded-full hover:bg-black/70"
+          >
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+          </button>
+          <div
+            ref={partnersRef}
+            className="flex space-x-3 sm:space-x-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory py-2"
+          >
+            {orgs.map((m) => (
+              <a
+                key={m.id}
+                href={m.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="snap-start flex flex-col items-center bg-white/10 backdrop-blur-lg border border-white/20 rounded-lg p-4 sm:p-6 hover:scale-105 transition-transform min-w-[140px] sm:min-w-[200px] lg:min-w-[240px]"
+              >
+                <img
+                  src={m.image}
+                  alt={m.name}
+                  className="h-16 sm:h-20 object-contain mb-3 sm:mb-4 rounded-md"
+                />
+                <span className="text-white font-semibold text-center text-sm sm:text-base">
+                  {m.name}
+                </span>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>

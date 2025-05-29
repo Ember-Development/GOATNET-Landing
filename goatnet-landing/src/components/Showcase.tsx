@@ -3,9 +3,9 @@ import { ChevronLeft, ChevronRight, PlayCircle, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import badge from "../assets/images/Goatnet_Icon_White.png";
 import waves from "../assets/images/waves.png";
-import erik from "../assets/images/erik.png";
+import erik from "../assets/images/eric.png";
 import three from "../assets/images/three-minutes-1.png";
-import virgina from "../assets/images/virginia.jpg";
+import virgina from "../assets/images/virginia.png";
 import marshall from "../assets/images/marshall-poster.png";
 import Bo from "../assets/images/bo-2.png";
 import Bazuca from "../assets/images/bazucabros.png";
@@ -39,7 +39,7 @@ const items: Item[] = [
   },
   {
     id: 2,
-    title: "This is Marshalls Baseball",
+    title: "The Marshalls",
     image: marshall,
     caption:
       "The inspiring story of the Marshall’s Baseball Program in Utah—one of the most impactful and influential amateur baseball organizations in America. From its roots as a regional travel team to a national proving ground, the Marshalls have helped shape the careers of some of the game's brightest stars, including Bryce Harper and Kris Bryant. But this isn’t just a story of past greatness—it’s about the present and future. Through exclusive behind-the-scenes access, the film follows the current generation of players chasing their dreams, guided by the same values of discipline, grit, and brotherhood that built the program’s reputation.",
@@ -49,7 +49,7 @@ const items: Item[] = [
   },
   {
     id: 3,
-    title: "The OG RB: Eric Dickerson",
+    title: "From The Jump",
     image: erik,
     caption:
       "Get to know the man behind the visor beyond the records and rushing titles. From falling in love with football on Texas fields to navigating family, faith, and the pain of losing his father, Dickerson shares his journey with honesty and heart. This is a story about purpose, promise, and the power of building something greater.",
@@ -59,7 +59,7 @@ const items: Item[] = [
   },
   {
     id: 4,
-    title: "GOAT Time with Bo Jackson",
+    title: "Rad Grandpa",
     image: Bo,
     caption:
       "Step inside the world of Bo Jackson like never before—beyond the highlight reels and legendary moments. In this intimate and powerful interview, Bo opens up about the heart behind his state-of-the-art youth facilities, his humble beginnings, and the life lessons he passes on to the next generation. From helping bury victims of tragedy to sharing deeply personal stories about his mother, spirituality, and family, Bo reflects on a life of resilience, purpose, and legacy. This is a portrait of the man behind the myth—grounded, giving, and quietly great.",
@@ -79,7 +79,7 @@ const items: Item[] = [
   },
   {
     id: 6,
-    title: "Meet the Virginia Cavaliers",
+    title: "Choose Hoos",
     image: virgina,
     caption:
       "Go beyond the scoreboard and inside one of college baseball’s premier programs in their annual quest for Omaha.",
@@ -133,7 +133,7 @@ export default function Showcase() {
   };
 
   return (
-    <section id="showcase" className="relative bg-black py-12 sm:py-20">
+    <section id="showcase" className="relative bg-black py-5 md:py-15">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div variants={itemVariants} className="mb-4 sm:mb-6">
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white">

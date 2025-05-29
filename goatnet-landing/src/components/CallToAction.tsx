@@ -12,7 +12,7 @@ export default function CallToAction({ onOpenModal }: CallToActionProps) {
     <section
       id="contact"
       ref={ref}
-      className="relative bg-black py-10 md:py-20 overflow-hidden"
+      className="relative bg-black py-10 md:py-15 overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-black pointer-events-none" />
 
@@ -49,7 +49,7 @@ export default function CallToAction({ onOpenModal }: CallToActionProps) {
             }}
             className="relative text-center md:inline-flex items-center px-8 py-3 font-semibold text-sm uppercase tracking-wide text-white rounded-full border border-gray-500 hover:border-white hover:bg-white/10 transition"
           >
-            Announce Yourself
+            Check In
             <span
               className="absolute inset-0 rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity"
               style={{

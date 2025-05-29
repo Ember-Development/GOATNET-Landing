@@ -49,7 +49,7 @@ export default function About() {
     <section
       id="about"
       ref={ref}
-      className="relative bg-black overflow-hidden py-5 md:py-20"
+      className="relative bg-black overflow-hidden py-5 md:py-15"
     >
       <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-black pointer-events-none" />
 
@@ -73,7 +73,7 @@ export default function About() {
 
           <motion.p variants={itemVariants} className="text-gray-400">
             Every awesome story starts with purpose. Ours is to serve
-            organizations and individuals who share one: greatness.
+            organizations and individuals who share one: Greatness.
           </motion.p>
 
           <motion.p variants={itemVariants} className="text-gray-400">

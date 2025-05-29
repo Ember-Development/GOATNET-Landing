@@ -103,7 +103,7 @@ export default function SolutionsProcess() {
   return (
     <section
       id="solutions"
-      className="relative py-5 md:py-20 bg-black text-white overflow-hidden"
+      className="relative py-5 md:py-15 bg-black text-white overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-8 flex flex-col lg:flex-row gap-12 items-start">
         {/* Left Side: Tabs + Grid */}

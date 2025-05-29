@@ -24,20 +24,20 @@ export default function OverlayCTA() {
       transition={{ duration: 0.3, ease: "easeOut" }}
       className="absolute bottom-0 left-0 w-full z-50 bg-black/60 backdrop-blur-md px-4 py-4 sm:px-8 sm:py-6"
     >
-      <div className="max-w-screen-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-y-4 sm:gap-y-0 gap-x-4 sm:gap-x-12 w-full">
+      <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-y-4 lg:gap-y-0 gap-x-4 lg:gap-x-12 w-full">
         {/* Logo */}
         <img
           src={GoatCard}
           alt="GOATNET Logo"
-          className="hidden md:block w-16 h-16 sm:w-24 sm:h-24 object-contain mx-auto sm:mx-0"
+          className="hidden lg:block w-16 h-16 sm:w-24 sm:h-24 object-contain mx-auto sm:mx-0"
         />
 
         {/* Text Block */}
-        <div className="flex-1 text-center sm:text-left space-y-1">
-          <h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-neutral-200 uppercase">
+        <div className="flex-1 text-center lg:text-left space-y-1">
+          <h1 className="text-xl lg:text-2xl md:text-4xl font-bold text-neutral-200 uppercase">
             Welcome to Goatnet
           </h1>
-          <p className="text-sm sm:text-base text-neutral-300 max-w-xs sm:max-w-xl mx-auto sm:mx-0">
+          <p className="text-sm lg:text-base text-neutral-300 max-w-xs md:max-w-xl mx-auto lg:mx-0">
             Life is packed with great stories. We exist so they’re successfully
             shared.
           </p>
