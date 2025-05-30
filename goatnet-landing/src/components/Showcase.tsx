@@ -215,7 +215,7 @@ export default function Showcase() {
                 animate="show"
                 className="
                   relative snap-center
-                  min-w-[180px] sm:min-w-[240px] md:min-w-[280px] lg:min-w-[320px]
+                  min-w-[180px] sm:min-w-[240px] md:min-w-[280px] lg:min-w-[300px]
                   rounded-lg overflow-hidden cursor-pointer
                 "
                 onClick={() => {
