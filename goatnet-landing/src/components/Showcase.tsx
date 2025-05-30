@@ -35,7 +35,7 @@ const items: Item[] = [
     caption:
       "NJ lifeguards compete for history in a legendary summer showdown. Experience the ocean, grit and glory behind the Harvey Cedars Beach Patrol's pursuit of a record-breaking seventh straight LBI Lifeguard Championship on Long Beach Island, NJ",
     video: "https://www.youtube.com/watch?v=az5TRfOdgQ8",
-    type: "documentary",
+    type: "Documentary",
     channel: [],
   },
   {
@@ -55,7 +55,7 @@ const items: Item[] = [
     caption:
       "Get to know the man behind the visor beyond the records and rushing titles. From falling in love with football on Texas fields to navigating family, faith, and the pain of losing his father, Dickerson shares his journey with honesty and heart. This is a story about purpose, promise, and the power of building something greater.",
     video: "https://www.youtube.com/watch?v=4ORfQO1b70Y",
-    type: "trailer",
+    type: "Trailer",
     channel: [],
   },
   {
@@ -65,7 +65,7 @@ const items: Item[] = [
     caption:
       "Step inside the world of Bo Jackson like never before—beyond the highlight reels and legendary moments. In this intimate and powerful interview, Bo opens up about the heart behind his state-of-the-art youth facilities, his humble beginnings, and the life lessons he passes on to the next generation. From helping bury victims of tragedy to sharing deeply personal stories about his mother, spirituality, and family, Bo reflects on a life of resilience, purpose, and legacy. This is a portrait of the man behind the myth—grounded, giving, and quietly great.",
     video: "https://www.youtube.com/watch?v=nw5jCitcsV0",
-    type: "interview",
+    type: "Interview",
     channel: [],
   },
   {
@@ -75,7 +75,7 @@ const items: Item[] = [
     caption:
       "The powerful true story of Jose Miqueo—an elite baseball prospect whose life changed in an instant. After a devastating car accident left him in a coma, doctors doubted he'd survive, let alone walk again. But Jose defied the odds. This is a story of faith, family, and an unbreakable will to return—not just to the game, but to a life of purpose.",
     video: "https://www.youtube.com/watch?v=NHPjAVvWTLg&t=4s",
-    type: "trailer",
+    type: "Trailer",
     channel: [],
   },
   {
@@ -85,7 +85,7 @@ const items: Item[] = [
     caption:
       "Go beyond the scoreboard and inside one of college baseball’s premier programs in their annual quest for Omaha.",
     video: "https://www.youtube.com/watch?v=EnGyBF6GS-Y",
-    type: "trailer",
+    type: "Trailer",
     channel: [],
   },
   {
@@ -95,7 +95,7 @@ const items: Item[] = [
     caption:
       "Charisma, swagger, and knockout power—Hendri & Euri Cedeno Martinez are rewriting the boxing script. Go behind the scenes with the team that fuels their rise—from trainers to day-ones—and witness the grind, the glory, and the brotherhood driving their path to greatness",
     video: "https://www.youtube.com/watch?v=xboEtOLV9RQ",
-    type: "trailer",
+    type: "Trailer",
     channel: [],
   },
   {
@@ -103,8 +103,9 @@ const items: Item[] = [
     title: "Team Phung",
     image: Phung,
     caption: "",
-    video: "https://www.youtube.com/watch?v=xboEtOLV9RQ",
-    type: "documentary",
+    video:
+      "https://www.instagram.com/reel/DH9UH_uxNtV/?igsh=MTQ1NHRqa3BwMDJqYQ==",
+    type: "Trailer",
     channel: [],
   },
 ];
