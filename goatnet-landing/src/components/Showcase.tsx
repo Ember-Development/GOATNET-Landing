@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import badge from "../assets/images/Goatnet_Icon_White.png";
 import waves from "../assets/images/waves.png";
 import erik from "../assets/images/eric.jpg";
-import three from "../assets/images/three-minutes.jpg";
+import three from "../assets/images/three-minutes.png";
 import virgina from "../assets/images/virginia.png";
 import marshall from "../assets/images/marshall-poster.jpg";
 import Bo from "../assets/images/bo-2.png";
@@ -12,8 +12,11 @@ import Bazuca from "../assets/images/bazucabros.png";
 import Phung from "../assets/images/phung.jpg";
 
 // Helper to extract YouTube ID
+// Helper to extract YouTube ID from watch, youtu.be, or shorts URLs
 function getYouTubeID(url: string) {
-  const match = url.match(/(?:v=|youtu\.be\/)([^&]+)/);
+  const regExp =
+    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([^?&/]+)/; // capture everything up to ? & or slash
+  const match = url.match(regExp);
   return match ? match[1] : undefined;
 }
 
@@ -35,7 +38,7 @@ const items: Item[] = [
     caption:
       "NJ lifeguards compete for history in a legendary summer showdown. Experience the ocean, grit and glory behind the Harvey Cedars Beach Patrol's pursuit of a record-breaking seventh straight LBI Lifeguard Championship on Long Beach Island, NJ",
     video: "https://www.youtube.com/watch?v=az5TRfOdgQ8",
-    type: "Documentary",
+    type: "documentary",
     channel: [],
   },
   {
@@ -45,7 +48,7 @@ const items: Item[] = [
     caption:
       "The inspiring story of the Marshall’s Baseball Program in Utah—one of the most impactful and influential amateur baseball organizations in America. From its roots as a regional travel team to a national proving ground, the Marshalls have helped shape the careers of some of the game's brightest stars, including Bryce Harper and Kris Bryant. But this isn’t just a story of past greatness—it’s about the present and future. Through exclusive behind-the-scenes access, the film follows the current generation of players chasing their dreams, guided by the same values of discipline, grit, and brotherhood that built the program’s reputation.",
     video: "https://www.youtube.com/watch?v=AitwYmf8g7s&t=5s",
-    type: "Documentary",
+    type: "documentary",
     channel: [],
   },
   {
@@ -55,7 +58,7 @@ const items: Item[] = [
     caption:
       "Get to know the man behind the visor beyond the records and rushing titles. From falling in love with football on Texas fields to navigating family, faith, and the pain of losing his father, Dickerson shares his journey with honesty and heart. This is a story about purpose, promise, and the power of building something greater.",
     video: "https://www.youtube.com/watch?v=4ORfQO1b70Y",
-    type: "Trailer",
+    type: "trailer",
     channel: [],
   },
   {
@@ -65,7 +68,7 @@ const items: Item[] = [
     caption:
       "Step inside the world of Bo Jackson like never before—beyond the highlight reels and legendary moments. In this intimate and powerful interview, Bo opens up about the heart behind his state-of-the-art youth facilities, his humble beginnings, and the life lessons he passes on to the next generation. From helping bury victims of tragedy to sharing deeply personal stories about his mother, spirituality, and family, Bo reflects on a life of resilience, purpose, and legacy. This is a portrait of the man behind the myth—grounded, giving, and quietly great.",
     video: "https://www.youtube.com/watch?v=nw5jCitcsV0",
-    type: "Interview",
+    type: "interview",
     channel: [],
   },
   {
@@ -75,7 +78,7 @@ const items: Item[] = [
     caption:
       "The powerful true story of Jose Miqueo—an elite baseball prospect whose life changed in an instant. After a devastating car accident left him in a coma, doctors doubted he'd survive, let alone walk again. But Jose defied the odds. This is a story of faith, family, and an unbreakable will to return—not just to the game, but to a life of purpose.",
     video: "https://www.youtube.com/watch?v=NHPjAVvWTLg&t=4s",
-    type: "Trailer",
+    type: "trailer",
     channel: [],
   },
   {
@@ -85,7 +88,7 @@ const items: Item[] = [
     caption:
       "Go beyond the scoreboard and inside one of college baseball’s premier programs in their annual quest for Omaha.",
     video: "https://www.youtube.com/watch?v=EnGyBF6GS-Y",
-    type: "Trailer",
+    type: "trailer",
     channel: [],
   },
   {
@@ -95,17 +98,17 @@ const items: Item[] = [
     caption:
       "Charisma, swagger, and knockout power—Hendri & Euri Cedeno Martinez are rewriting the boxing script. Go behind the scenes with the team that fuels their rise—from trainers to day-ones—and witness the grind, the glory, and the brotherhood driving their path to greatness",
     video: "https://www.youtube.com/watch?v=xboEtOLV9RQ",
-    type: "Trailer",
+    type: "trailer",
     channel: [],
   },
   {
     id: 8,
     title: "Team Phung",
     image: Phung,
-    caption: "",
-    video:
-      "https://www.instagram.com/reel/DH9UH_uxNtV/?igsh=MTQ1NHRqa3BwMDJqYQ==",
-    type: "Trailer",
+    caption:
+      "Amelie & Alexa Phung, not just sisters, but part of a bright future for women’s golf. More than that, the Phungs are members of a delightful family, driven to excel on and off the course and personable in precisely the ways you’d want. Young people, making their way, pursuing dreams purposefully and having fun in the process.",
+    video: "https://youtube.com/shorts/s3eaElShiW0",
+    type: "trailer",
     channel: [],
   },
 ];
@@ -227,12 +230,11 @@ export default function Showcase() {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 {/* Taller on mobile, original ratio on sm+ */}
-                <div className="w-full relative pb-[170%] sm:pb-[165%] bg-gray-800">
+                <div className="w-full relative pb-[170%] sm:pb-[170%] bg-gray-800">
                   <img
                     src={item.image}
                     alt={item.title}
                     className="absolute inset-0 w-full h-full object-cover object-center md:object-center"
-                    loading="lazy"
                   />
                 </div>
 
