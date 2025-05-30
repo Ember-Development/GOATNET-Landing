@@ -3,12 +3,13 @@ import { ChevronLeft, ChevronRight, PlayCircle, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import badge from "../assets/images/Goatnet_Icon_White.png";
 import waves from "../assets/images/waves.png";
-import erik from "../assets/images/eric.png";
-import three from "../assets/images/three-minutes-1.png";
+import erik from "../assets/images/eric.jpg";
+import three from "../assets/images/three-minutes.jpg";
 import virgina from "../assets/images/virginia.png";
-import marshall from "../assets/images/marshall-poster.png";
+import marshall from "../assets/images/marshall-poster.jpg";
 import Bo from "../assets/images/bo-2.png";
 import Bazuca from "../assets/images/bazucabros.png";
+import Phung from "../assets/images/phung.jpg";
 
 // Helper to extract YouTube ID
 function getYouTubeID(url: string) {
@@ -97,7 +98,27 @@ const items: Item[] = [
     type: "trailer",
     channel: [],
   },
+  {
+    id: 8,
+    title: "Team Phung",
+    image: Phung,
+    caption: "",
+    video: "https://www.youtube.com/watch?v=xboEtOLV9RQ",
+    type: "documentary",
+    channel: [],
+  },
 ];
+
+const formattedItems = items.map((item) => {
+  const displayTitle =
+    item.title === "How The Waves Were Won"
+      ? "How The Waves\nWere Won"
+      : item.title === "Three Minutes From Home"
+      ? "Three Minutes\nFrom Home"
+      : item.title;
+
+  return { ...item, displayTitle };
+});
 
 // Animation variants
 const backdropVariants = {
@@ -186,7 +207,7 @@ export default function Showcase() {
             ref={containerRef}
             className="flex space-x-4 sm:space-x-8 overflow-x-auto snap-x snap-mandatory scroll-hide py-2"
           >
-            {items.map((item) => (
+            {formattedItems.map((item) => (
               <motion.div
                 key={item.id}
                 variants={itemVariants}
@@ -205,18 +226,18 @@ export default function Showcase() {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 {/* Taller on mobile, original ratio on sm+ */}
-                <div className="w-full relative pb-[170%] sm:pb-[150%] bg-gray-800">
+                <div className="w-full relative pb-[170%] sm:pb-[165%] bg-gray-800">
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="absolute inset-0 w-full h-full object-cover object-center"
+                    className="absolute inset-0 w-full h-full object-cover object-center md:object-center"
                     loading="lazy"
                   />
                 </div>
 
                 <div className="mt-1 sm:mt-2 text-center">
-                  <span className="inline-block text-sm sm:text-base bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500 font-semibold uppercase">
-                    {item.title}
+                  <span className="inline-block text-sm sm:text-base bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500 font-semibold uppercase whitespace-pre-line text-center">
+                    {item.displayTitle}
                   </span>
                 </div>
               </motion.div>

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import heroVideoDesktop from "../assets/videos/goatnetv2.mp4";
-import heroVideoMobile from "../assets/videos/GoatnetVert.mp4";
+import heroVideoDesktop from "../assets/videos/goatnetv5.mp4";
+import heroVideoMobile from "../assets/videos/GoatnetMobileV2.mp4";
 import OverlayCTA from "./ui/overlayCTA";
 
 export default function Hero() {
