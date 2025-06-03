@@ -60,7 +60,7 @@ const solutionsData: Record<Tab, SolutionItem[]> = {
       icon: <PlayCircle className="w-6 h-6 text-purple-400" />,
     },
     {
-      title: "Web Devlopment",
+      title: "Web Development",
       tag: "Build & Maintain Online",
       desc: "From custom website development to ongoing maintenance, your online presence is strategically mapped and consistently optimized, through both internal and preferred subcontractor offerings. Custom-site development? Great! We build, QA and offer dependable resources for assigned updates.",
       icon: <ShoppingBag className="w-6 h-6 text-purple-400" />,
