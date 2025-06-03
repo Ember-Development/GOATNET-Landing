@@ -31,6 +31,7 @@ const people: Member[] = Object.entries(images).map(([path, image]) => ({
 import HBCU from "../assets/images/hbcu.png";
 import Harvey from "../assets/images/harvey.jpg";
 import Health from "../assets/images/sport-health.png";
+import player from "../assets/images/5TP.png";
 
 interface MemberProps {
   onOpenModal: () => void;
@@ -75,6 +76,12 @@ const orgs: Member[] = [
     name: "Sports Health In The City",
     image: Health,
     link: "https://www.sportsandhealthnyc.org/",
+  },
+  {
+    id: "org7",
+    name: "Five Tool Player Development",
+    image: player,
+    link: "https://5tool.com/player-development/",
   },
 ];
 
