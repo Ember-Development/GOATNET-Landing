@@ -227,7 +227,7 @@ export default function Members({ onOpenModal }: MemberProps) {
               {partners.map((p) => {
                 const fullImageUrl = p.imageUrl?.startsWith("http")
                   ? p.imageUrl
-                  : `${import.meta.env.VITE_API_URL}${p.imageUrl}`;
+                  : `${import.meta.env.VITE_API_IMAGE_URL}${p.imageUrl}`;
 
                 return (
                   <a
