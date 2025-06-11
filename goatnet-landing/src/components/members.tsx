@@ -2,90 +2,16 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export type Member = {
-  id: string;
-  name: string;
-  image: string;
-  link?: string;
-};
-
-function fileNameToName(fn: string) {
-  const name = fn.replace(/\.(png|jpe?g|svg)$/, "");
-  return name
-    .split(/[-_]/)
-    .map((w) => w[0].toUpperCase() + w.slice(1))
-    .join(" ");
-}
-
-const images = import.meta.glob("../assets/creds/*.{png,jpg,jpeg,svg}", {
-  eager: true,
-  import: "default",
-});
-
-const people: Member[] = Object.entries(images).map(([path, image]) => ({
-  id: path.split("/").pop() || "",
-  name: fileNameToName(path.split("/").pop() || ""),
-  image: image as string,
-}));
-
-import HBCU from "../assets/images/hbcu.png";
-import Harvey from "../assets/images/harvey.jpg";
-import Health from "../assets/images/sport-health.png";
-import player from "../assets/images/5TP.png";
+import { useCredentials, type Credential } from "../hooks/useCredentials";
+import { usePartners, type PartnerItem } from "../hooks/usePartners";
+import { CredentialPreview } from "../components/ui/CredentialCard";
+import Skeleton from "./ui/skelton";
 
 interface MemberProps {
   onOpenModal: () => void;
 }
 
-const orgs: Member[] = [
-  {
-    id: "org1",
-    name: "MGF Marshalls Baseball",
-    image:
-      "https://static.wixstatic.com/media/69e627_4b0475a463f2442d93e51aa6b325be4f~mv2.png",
-    link: "https://www.mgfmarshalls.com",
-  },
-  {
-    id: "org2",
-    name: "Rise 2 Greatness Foundation",
-    image:
-      "https://rise2greatness.org/wp-content/uploads/2022/05/Rise-2-Greatness-PG-Cares-1024x1024-1.png",
-    link: "https://rise2greatness.org",
-  },
-  {
-    id: "org3",
-    name: "Metropolitan Oval Academy",
-    image:
-      "https://metropolitanoval.org/wp-content/uploads/2019/03/Met-Oval-White-Trans1k.png",
-    link: "https://metropolitanoval.org",
-  },
-  {
-    id: "org4",
-    name: "HBCU Icon Exchange",
-    image: HBCU,
-    link: "https://hbcuiconexchange.org",
-  },
-  {
-    id: "org5",
-    name: "Harvey Cedars Beach Patrol",
-    image: Harvey,
-    link: "https://www.harveycedars.org/cn/webpage.cfm?tpid=14966",
-  },
-  {
-    id: "org6",
-    name: "Sports Health In The City",
-    image: Health,
-    link: "https://www.sportsandhealthnyc.org/",
-  },
-  {
-    id: "org7",
-    name: "Five Tool Player Development",
-    image: player,
-    link: "https://5tool.com/player-development/",
-  },
-];
-
-const item = {
+const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
@@ -94,6 +20,21 @@ export default function Members({ onOpenModal }: MemberProps) {
   const peopleRef = useRef<HTMLDivElement>(null);
   const partnersRef = useRef<HTMLDivElement>(null);
 
+  // Fetch credentials
+  const {
+    data: credentialsData,
+    loading: credsLoading,
+    error: credsError,
+  } = useCredentials();
+
+  // Fetch partners
+  const {
+    data: partnersData,
+    loading: partnersLoading,
+    error: partnersError,
+  } = usePartners();
+
+  // Scroll helper
   const scroll = (
     ref: React.RefObject<HTMLDivElement | null>,
     dir: "left" | "right"
@@ -109,15 +50,29 @@ export default function Members({ onOpenModal }: MemberProps) {
     });
   };
 
+  let credentials: Credential[] = [];
+  if (credentialsData) {
+    credentials = credentialsData;
+  }
+
+  // partners to show (sorted by `order`)
+  let partners: PartnerItem[] = [];
+  if (partnersData) {
+    partners = partnersData.slice().sort((a, b) => {
+      const aOrder = a.order ?? Number.POSITIVE_INFINITY;
+      const bOrder = b.order ?? Number.POSITIVE_INFINITY;
+      return aOrder - bOrder;
+    });
+  }
+
   return (
     <section
       id="credentials"
       className="relative bg-black py-10 md:py-15 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
         <motion.div
-          variants={item}
+          variants={itemVariants}
           initial="hidden"
           animate="show"
           className="mb-4 sm:mb-6 flex items-center justify-between"
@@ -134,7 +89,7 @@ export default function Members({ onOpenModal }: MemberProps) {
         </motion.div>
 
         <motion.p
-          variants={item}
+          variants={itemVariants}
           className="text-gray-300 mb-8 sm:mb-12 text-sm sm:text-base"
         >
           Goatnet has Guest, Select & Goat memberships with tiered status.
@@ -142,43 +97,67 @@ export default function Members({ onOpenModal }: MemberProps) {
           milestones.
         </motion.p>
 
-        {/* Credentials Carousel */}
-        <div className="relative mb-12 sm:mb-24">
-          <button
-            onClick={() => scroll(peopleRef, "left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 bg-black/50 rounded-full hover:bg-black/70"
-          >
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-          </button>
-          <button
-            onClick={() => scroll(peopleRef, "right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 bg-black/50 rounded-full hover:bg-black/70"
-          >
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-          </button>
-          <div
-            ref={peopleRef}
-            className="flex space-x-3 sm:space-x-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory py-2"
-          >
-            {people.map((m) => (
-              <div
-                key={m.id}
-                className="relative snap-start rounded-xl overflow-hidden shadow-lg min-w-[140px] sm:min-w-[200px] lg:min-w-[240px]"
-              >
-                <img
-                  src={m.image}
-                  alt={m.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
+        {/* ════ CREDENTIALS CAROUSEL ════ */}
+        {credsLoading ? (
+          <div className="relative mb-12 sm:mb-24">
+            <div className="flex space-x-3 sm:space-x-4 overflow-hidden py-2">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="min-w-[140px] sm:min-w-[200px]">
+                  <Skeleton height="h-32 sm:h-40 w-full rounded-lg" />
+                  <Skeleton height="h-4 w-3/4 mx-auto mt-2" />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : credsError ? (
+          <div className="py-10 flex justify-center">
+            <span className="text-red-400">{credsError}</span>
+          </div>
+        ) : credentials.length === 0 ? (
+          <div className="py-10 flex justify-center">
+            <span className="text-gray-400">No credentials to show.</span>
+          </div>
+        ) : (
+          <div className="relative mb-12 sm:mb-24">
+            <button
+              onClick={() => scroll(peopleRef, "left")}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 bg-black/50 rounded-full hover:bg-black/70"
+            >
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            </button>
+            <button
+              onClick={() => scroll(peopleRef, "right")}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 bg-black/50 rounded-full hover:bg-black/70"
+            >
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            </button>
 
-        {/* Partners Header */}
+            <div
+              ref={peopleRef}
+              className="flex space-x-3 sm:space-x-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory py-2"
+            >
+              {credentials.map((c) => {
+                const fullImageUrl = c.imageUrl?.startsWith("http")
+                  ? c.imageUrl
+                  : `${import.meta.env.VITE_API_IMAGE_URL}${c.imageUrl}`;
+
+                return (
+                  <CredentialPreview
+                    key={c.id}
+                    name={c.name ?? "Unknown"}
+                    imageUrl={fullImageUrl}
+                    link={c.link ?? undefined}
+                    className="bg-white/10 backdrop-blur-lg border border-white/20"
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         <motion.div
           id="partners"
-          variants={item}
+          variants={itemVariants}
           initial="hidden"
           animate="show"
           className="mb-4 sm:mb-6 flex items-center justify-between"
@@ -195,7 +174,7 @@ export default function Members({ onOpenModal }: MemberProps) {
         </motion.div>
 
         <motion.p
-          variants={item}
+          variants={itemVariants}
           className="text-gray-300 mb-8 sm:mb-12 text-sm sm:text-base"
         >
           We offer flexible models based on goals and needs, including
@@ -203,44 +182,83 @@ export default function Members({ onOpenModal }: MemberProps) {
           boosters and external networks.
         </motion.p>
 
-        {/* Partners Carousel */}
-        <div className="relative mb-12 sm:mb-24">
-          <button
-            onClick={() => scroll(partnersRef, "left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 bg-black/50 rounded-full hover:bg-black/70"
-          >
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-          </button>
-          <button
-            onClick={() => scroll(partnersRef, "right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 bg-black/50 rounded-full hover:bg-black/70"
-          >
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-          </button>
-          <div
-            ref={partnersRef}
-            className="flex space-x-3 sm:space-x-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory py-2"
-          >
-            {orgs.map((m) => (
-              <a
-                key={m.id}
-                href={m.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="snap-start flex flex-col items-center bg-white/10 backdrop-blur-lg border border-white/20 rounded-lg p-4 sm:p-6 hover:scale-105 transition-transform min-w-[140px] sm:min-w-[200px] lg:min-w-[240px]"
-              >
-                <img
-                  src={m.image}
-                  alt={m.name}
-                  className="h-16 sm:h-20 object-contain mb-3 sm:mb-4 rounded-md"
-                />
-                <span className="text-white font-semibold text-center text-sm sm:text-base">
-                  {m.name}
-                </span>
-              </a>
-            ))}
+        {/* ════ PARTNERS CAROUSEL ════ */}
+        {partnersLoading ? (
+          <div className="relative mb-12 sm:mb-24">
+            <div className="flex space-x-3 sm:space-x-4 overflow-hidden py-2">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div
+                  key={i}
+                  className="snap-start flex flex-col items-center min-w-[140px] sm:min-w-[200px] lg:min-w-[240px]"
+                >
+                  <Skeleton height="h-16 sm:h-20 w-full rounded-md mb-3 sm:mb-4" />
+                  <Skeleton height="h-4 w-2/3" />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : partnersError ? (
+          <div className="py-10 flex justify-center">
+            <span className="text-red-400">{partnersError}</span>
+          </div>
+        ) : partners.length === 0 ? (
+          <div className="py-10 flex justify-center">
+            <span className="text-gray-400">No partners to show.</span>
+          </div>
+        ) : (
+          <div className="relative mb-12 sm:mb-24">
+            <button
+              onClick={() => scroll(partnersRef, "left")}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 bg-black/50 rounded-full hover:bg-black/70"
+            >
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            </button>
+            <button
+              onClick={() => scroll(partnersRef, "right")}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 bg-black/50 rounded-full hover:bg-black/70"
+            >
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            </button>
+
+            <div
+              ref={partnersRef}
+              className="flex space-x-3 sm:space-x-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory py-2"
+            >
+              {partners.map((p) => {
+                const fullImageUrl = p.imageUrl?.startsWith("http")
+                  ? p.imageUrl
+                  : `${import.meta.env.VITE_API_URL}${p.imageUrl}`;
+
+                return (
+                  <a
+                    key={p.id}
+                    href={p.link ?? "#"}
+                    target={p.link ? "_blank" : "_self"}
+                    rel="noopener noreferrer"
+                    className="snap-start flex flex-col items-center bg-white/10 backdrop-blur-lg border border-white/20 rounded-lg p-4 sm:p-6 hover:scale-105 transition-transform min-w-[140px] sm:min-w-[200px] lg:min-w-[240px]"
+                  >
+                    {fullImageUrl ? (
+                      <img
+                        src={fullImageUrl}
+                        alt={p.name}
+                        className="h-16 sm:h-20 object-contain mb-3 sm:mb-4 rounded-md"
+                      />
+                    ) : (
+                      <div className="w-full h-16 sm:h-20 bg-gray-700 flex items-center justify-center rounded-md mb-3 sm:mb-4">
+                        <span className="text-gray-300 text-sm text-center px-2">
+                          {p.name}
+                        </span>
+                      </div>
+                    )}
+                    <span className="mt-3 text-white font-semibold text-center text-sm">
+                      {p.name}
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

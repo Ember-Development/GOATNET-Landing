@@ -1,15 +1,35 @@
 import { motion } from "framer-motion";
-import heroVideoDesktop from "../assets/videos/goatnetv5.mp4";
-import heroVideoMobile from "../assets/videos/GoatnetMobileV2.mp4";
 import OverlayCTA from "./ui/overlayCTA";
+import { useHeroSection } from "../hooks/useHero";
 
 export default function Hero() {
+  const { hero } = useHeroSection();
+
+  // Video URL
+  const base = import.meta.env.VITE_API_IMAGE_URL;
+  const desktopSrc =
+    hero && hero.desktopVideoUrl
+      ? hero.desktopVideoUrl.startsWith("http")
+        ? hero.desktopVideoUrl
+        : `${base}${hero.desktopVideoUrl}`
+      : "";
+  const mobileSrc =
+    hero && hero.mobileVideoUrl
+      ? hero.mobileVideoUrl.startsWith("http")
+        ? hero.mobileVideoUrl
+        : `${base}${hero.mobileVideoUrl}`
+      : "";
+
+  if (!hero) {
+    return null;
+  }
+
   return (
     <section className="relative w-screen overflow-hidden bg-black text-white flex items-center justify-center">
       <div className="h-[100vh] w-full aspect-[1/1] md:aspect-[5/4] relative">
         {/* Desktop Video */}
         <motion.video
-          src={heroVideoDesktop}
+          src={desktopSrc}
           autoPlay
           muted
           loop
@@ -22,7 +42,7 @@ export default function Hero() {
 
         {/* Mobile Video */}
         <motion.video
-          src={heroVideoMobile}
+          src={mobileSrc}
           autoPlay
           muted
           loop

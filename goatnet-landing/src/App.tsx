@@ -11,7 +11,7 @@ export default function App() {
       <Routes>
         {/* Home */}
         <Route path="/" element={<LandingPage />} />
-        {/* Your new CRDNTL page */}
+        {/* Nested pages */}
         <Route path="/crdntl" element={<CrdntlPage />} />
         <Route path="/about" element={<AboutUsPage />} />
         {/* (Optionally, a catch-all 404 route) */}

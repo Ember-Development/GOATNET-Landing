@@ -18,7 +18,7 @@ export default function LandingPage() {
         "https://script.google.com/macros/s/AKfycbwJfGXgtTLeKIegi_WfV02uroAszJqf_hUN9_dwDkNB8u0aNeEW7xREtwemx6dN8n1-8Q/exec",
         {
           method: "POST",
-          mode: "no-cors", // Required for Apps Script, disables error reporting
+          mode: "no-cors",
           headers: {
             "Content-Type": "application/json",
           },
