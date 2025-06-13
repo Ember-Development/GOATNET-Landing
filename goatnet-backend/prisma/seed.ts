@@ -265,7 +265,6 @@ async function main() {
         type: "documentary",
         showOnLanding: true,
         landingOrder: 1,
-        studio: { connect: { id: studioIdForAttractions } },
         channels: {
           connect: [{ id: sportsChannel.id }, { id: docChannel.id }],
         },
@@ -281,7 +280,6 @@ async function main() {
         type: "documentary",
         showOnLanding: true,
         landingOrder: 2,
-        studio: { connect: { id: studioIdForAttractions } },
         channels: {
           connect: [{ id: sportsChannel.id }, { id: historyChannel.id }],
         },
@@ -297,7 +295,6 @@ async function main() {
         type: "interview",
         showOnLanding: true,
         landingOrder: 3,
-        studio: { connect: { id: studioIdForAttractions } },
         channels: {
           connect: [{ id: sportsChannel.id }, { id: interviewChannel.id }],
         },
@@ -313,7 +310,6 @@ async function main() {
         type: "trailer",
         showOnLanding: true,
         landingOrder: 4,
-        studio: { connect: { id: studioIdForAttractions } },
         channels: {
           connect: [{ id: sportsChannel.id }, { id: motivationChannel.id }],
         },
@@ -460,7 +456,6 @@ async function main() {
         imageUrl: "https://cdn.goatnet.com/attractions/admin-doc.jpg",
         videoUrl: "https://www.youtube.com/embed/abcdefghijk",
         type: "documentary",
-        studio: { connect: { id: adminStudio.id } },
         channels: {
           connect: [{ id: sportsChannel.id }, { id: docChannel.id }],
         },
@@ -473,7 +468,6 @@ async function main() {
         imageUrl: "https://cdn.goatnet.com/attractions/admin-sports.jpg",
         videoUrl: "https://www.youtube.com/embed/zyxwvutsrqp",
         type: "highlight",
-        studio: { connect: { id: adminStudio.id } },
         channels: { connect: [{ id: sportsChannel.id }] },
       },
     }),
@@ -575,7 +569,7 @@ async function main() {
 main()
   .catch((e) => {
     console.error("💥 Seeding error:", e);
-    process.exit(1);
+    // process.exit(1);
   })
   .finally(async () => {
     await prisma.$disconnect();

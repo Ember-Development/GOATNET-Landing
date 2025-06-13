@@ -15,11 +15,15 @@ const storage = multer.diskStorage({
 });
 
 // ─── Image Upload Config ─────────────────────────────────────────────────────
-const imageFileFilter: multer.Options["fileFilter"] = (_req, file, cb) => {
+const imageFileFilter = (
+  _req: Express.Request,
+  file: Express.Multer.File,
+  cb: multer.FileFilterCallback
+) => {
   if (file.mimetype.startsWith("image/")) {
     cb(null, true);
   } else {
-    cb(new Error("Only image files (PNG, JPG, GIF, etc.) are allowed"), false);
+    cb(new Error("Only image files (PNG, JPG, GIF, etc.) are allowed"));
   }
 };
 
@@ -34,7 +38,7 @@ const videoFileFilter: multer.Options["fileFilter"] = (_req, file, cb) => {
   if (file.mimetype.startsWith("video/")) {
     cb(null, true);
   } else {
-    cb(new Error("Only video files (MP4, WebM, etc.) are allowed"), false);
+    cb(new Error("Only video files (MP4, WebM, etc.) are allowed"));
   }
 };
 
