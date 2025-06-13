@@ -3,10 +3,10 @@ import { motion, useAnimation } from "framer-motion";
 import { useAboutSection } from "../hooks/useAboutSection";
 
 // Helper to extract YouTube ID from a full embed URL
-function getYouTubeID(url: string) {
-  const match = url.match(/(?:v=|youtu\.be\/)([^&]+)/);
-  return match ? match[1] : undefined;
-}
+// function getYouTubeID(url: string) {
+//   const match = url.match(/(?:v=|youtu\.be\/)([^&]+)/);
+//   return match ? match[1] : undefined;
+// }
 
 const containerVariants = {
   hidden: {},
