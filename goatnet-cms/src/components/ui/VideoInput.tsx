@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent } from "react";
 import toast from "react-hot-toast";
-import { heroApi } from "../../utils/api";
+import { uploadVideoAndGetUrl } from "../../utils/mediaApi";
 
 interface VideoInputProps {
   label: string;
@@ -33,8 +33,8 @@ export function VideoInput({
 
     setUploading(true);
     try {
-      const data = await heroApi.uploadFile(file);
-      setVideoUrl(data.url);
+      const data = await uploadVideoAndGetUrl(file);
+      setVideoUrl(data);
       toast.success(`${label} video uploaded!`);
     } catch (err: any) {
       toast.error("Upload error: " + err.message);
