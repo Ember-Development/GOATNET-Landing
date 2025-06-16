@@ -34,7 +34,7 @@ export const startServer = () => {
     res.send("🐐 GOATNET backend is up and running!");
   });
 
-  app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+  app.use("/uploads", express.static(path.join(__dirname, "../../uploads")));
   app.use("/api", router);
 
   app.use(
