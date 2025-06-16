@@ -14,6 +14,7 @@ export const startServer = () => {
     "http://localhost:5173",
     "http://localhost:5174",
     "https://dev.goatnet.io",
+    "https://cms.dev.goatnet.io",
   ];
 
   app.use(
