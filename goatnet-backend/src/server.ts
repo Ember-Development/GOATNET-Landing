@@ -10,20 +10,21 @@ export const startServer = () => {
   const app = express();
   const PORT = process.env.PORT || 8080;
 
-  const ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "https://dev.goatnet.io",
-    "https://cms.dev.goatnet.io",
-  ];
-
   // CORS configuration
   app.use(
     cors({
       origin: (incomingOrigin, callback) => {
-        if (!incomingOrigin || ALLOWED_ORIGINS.includes(incomingOrigin)) {
+        console.log("[CORS ORIGIN]", incomingOrigin);
+        const allowed = [
+          "http://localhost:5173",
+          "http://localhost:5174",
+          "https://dev.goatnet.io",
+          "https://cms.dev.goatnet.io",
+        ];
+        if (!incomingOrigin || allowed.includes(incomingOrigin)) {
           callback(null, true);
         } else {
+          console.warn(`❌ CORS blocked: ${incomingOrigin}`);
           callback(new Error(`CORS blocked: ${incomingOrigin}`));
         }
       },
