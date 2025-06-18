@@ -19,6 +19,7 @@ export const updateTitle: RequestHandler = async (req, res) => {
       res.status(400).json({ error: "Title must be a string." });
     }
     const updated = await aboutService.updateTitle(title);
+    console.log("Hit updateTitle route");
     res.json(updated);
   } catch (err: any) {
     res.status(400).json({ error: err.message });

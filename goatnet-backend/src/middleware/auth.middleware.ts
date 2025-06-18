@@ -18,6 +18,8 @@ export const authenticate: RequestHandler = (req, res, next) => {
     const token = authHeader.replace("Bearer ", "");
     const payload = verifyToken(token); // assumed to be sync
     (req as AuthRequest).user = { userId: payload.userId, role: payload.role };
+
+    next();
   } catch (err) {
     res.status(401).json({ error: "Invalid or expired token" });
     return;

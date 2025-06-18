@@ -20,24 +20,16 @@ export const startServer = () => {
   // CORS configuration
   app.use(
     cors({
-      origin: (origin, callback) => {
-        if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+      origin: (incomingOrigin, callback) => {
+        if (!incomingOrigin || ALLOWED_ORIGINS.includes(incomingOrigin)) {
           callback(null, true);
         } else {
-          console.warn(`Blocked CORS origin: ${origin}`);
-          callback(null, false); // 👈 don't throw! Just reject it silently
+          callback(new Error(`CORS blocked: ${incomingOrigin}`));
         }
       },
       credentials: true,
-      methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-      allowedHeaders: ["Content-Type", "Authorization"],
     })
   );
-
-  // Handle OPTIONS preflight requests
-  // app.options("*", cors());
-
-  // Middleware
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
