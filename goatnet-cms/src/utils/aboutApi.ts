@@ -12,6 +12,7 @@ export const aboutApi = {
 
   async updateTitle(title: string): Promise<AboutSection> {
     const token = localStorage.getItem("token") ?? "";
+    console.log("Sending token:", token);
     const res = await fetch(`${API_URL}/about/title`, {
       method: "PATCH",
       headers: {

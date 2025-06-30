@@ -20,6 +20,8 @@ export const startServer = () => {
           "http://localhost:5174",
           "https://dev.goatnet.io",
           "https://cms.dev.goatnet.io",
+          "https://goatnet.io",
+          "https://cms.goatnet.io",
         ];
         if (!incomingOrigin || allowed.includes(incomingOrigin)) {
           callback(null, true);
