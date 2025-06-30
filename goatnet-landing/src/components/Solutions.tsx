@@ -13,6 +13,7 @@ import Skeleton from "./ui/skelton";
 const tabs = ["Storytelling", "Innovation", "Community"] as const;
 type Tab = (typeof tabs)[number];
 
+
 // Since the API doesn’t send an "icon" property yet, we’ll default to <Zap /> here:
 const defaultIcon = <Zap className="w-6 h-6 text-purple-400" />;
 
