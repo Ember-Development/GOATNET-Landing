@@ -67,11 +67,9 @@ export default function OverlayCTA() {
                 }
               );
 
-              // Clear form
               form.reset();
 
-              // Optional: confirm to user
-              alert("You're subscribed! 🎉");
+              alert("You're subscribed!");
             } catch (error) {
               console.error("Error submitting email:", error);
               alert("Something went wrong. Try again?");

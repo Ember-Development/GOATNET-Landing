@@ -10,7 +10,6 @@ const NAV_ITEMS = [
   { id: "showcase", label: "Attractions" },
   { id: "credentials", label: "Credentials" },
   { id: "partners", label: "Partners" },
-  // { id: "vision", label: "Vision" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -69,7 +68,6 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
 
   return (
     <>
-      {/* Progress Bar */}
       <div className="fixed top-0 left-0 h-1 w-full z-50">
         <div
           className="h-full bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500"
@@ -77,7 +75,6 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
         />
       </div>
 
-      {/* Navbar */}
       <header
         className={`
           fixed top-0 w-full z-50 bg-black/70 backdrop-blur-md
@@ -98,7 +95,6 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
               whileHover={{ scale: 1.1, rotate: 5 }}
             />
 
-            {/* Desktop Nav */}
             <nav className="hidden lg:flex gap-6 font-medium text-sm">
               {NAV_ITEMS.map(({ id, label }) =>
                 id === "vision" ? (
@@ -171,7 +167,6 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
             </div>
           </div>
 
-          {/* Mobile Toggle */}
           <motion.button
             onClick={toggleMenu}
             className="lg:hidden text-white p-2 relative overflow-hidden"
@@ -186,7 +181,6 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
           </motion.button>
         </div>
 
-        {/* Liquid Wave */}
         <svg className="absolute bottom-0 w-full h-6" viewBox="0 0 1440 320">
           <path
             fill="#000"

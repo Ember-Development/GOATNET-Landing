@@ -1,0 +1,223 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+/// ENUMS
+enum Role {
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
+enum Provider {
+  YOUTUBE
+  TIKTOK
+  INSTAGRAM
+  OTHER
+}
+
+/// MODELS
+
+/// Combines internal‐CMS login fields and optional landing‐page credential info.
+model User {
+  id            String     @id @default(cuid())
+  email         String     @unique
+  password      String
+  role          Role       @default(VIEWER)
+
+  // Landing‐page credential fields:
+  name          String?    
+  imageUrl      String?    
+  link          String?    
+  showOnLanding Boolean    @default(false)
+  landingOrder  Int?      
+
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  // Relations:
+
+  /// One‐to‐one: the Studio this user “owns” (if any)
+  studio        Studio?    
+  /// Many‐to‐many: channels this user is a “member” of
+  channels      Channel[]   @relation("ChannelMembers")
+
+  /// (Potential future) if a user manages PartnerItems or NewsletterArticles, add relations here
+}
+
+
+/// 2. PartnerItem
+/// Landing‐page “Our Partners” logos/links
+model PartnerItem {
+  id          String    @id @default(cuid())
+  name        String
+  imageUrl    String
+  link        String?
+  order       Int?     
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+
+/// 3. HeroSection
+/// Manages landing page’s hero videos (desktop & mobile)
+model HeroSection {
+  id               Int     @id @default(autoincrement())
+  desktopVideoUrl  String
+  mobileVideoUrl   String
+}
+
+
+/// 4. AboutSection
+/// Manages landing page’s “About Us” content
+model AboutSection {
+  id         Int      @id @default(autoincrement())
+  title      String
+  paragraphs String[] 
+  youtubeUrl String
+}
+
+
+/// 5. SolutionTab & SolutionItem
+/// Manages the “Solutions” section on the landing page
+model SolutionTab {
+  id        Int             @id @default(autoincrement())
+  name      String          
+  tagline   String          
+  items     SolutionItem[]
+}
+
+model SolutionItem {
+  id          Int         @id @default(autoincrement())
+  title       String
+  tag         String
+  description String
+  tabId       Int
+  tab         SolutionTab @relation(fields: [tabId], references: [id])
+}
+
+
+/// 7. NewsletterSubscriber & NewsletterArticle
+model NewsletterSubscriber {
+  id          String    @id @default(cuid())
+  email       String    @unique
+  createdAt   DateTime  @default(now())
+}
+
+model NewsletterArticle {
+  id          String    @id @default(cuid())
+  title       String
+  content     String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+
+/// 8. Channel
+/// Categories/tags for Attraction; also track which users (“members”) join.
+model Channel {
+  id            String          @id @default(cuid())
+  name          String          @unique   // e.g. “Sports”
+  slug          String          @unique   // e.g. “sports”
+  description   String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  attractions   Attraction[]    @relation("AttractionToChannel")
+  members       User[]          @relation("ChannelMembers")
+}
+
+
+/// 9. Attraction
+/// Native “Goatnet original” content
+model Attraction {
+  id            String           @id @default(cuid())
+  title         String
+  description   String?
+  imageUrl      String?
+  videoUrl      String?
+  type          String?        
+  showOnLanding Boolean  @default(false)
+  landingOrder  Int?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  // Many‐to‐many with Channel
+  channels      Channel[]        @relation("AttractionToChannel")
+
+  // Which internal Showcases include this Attraction
+  showcaseItems ShowcaseItemRel[]
+}
+
+
+/// 10. ShowcaseInternal & ShowcaseItemRel
+/// Internal CMS “Showcases”—curated lists of Attractions
+model ShowcaseInternal {
+  id            String            @id @default(cuid())
+  name          String            // e.g. “Homepage Featured Internal”
+  description   String?
+  studio        Studio            @relation(fields: [studioId], references: [id])
+  studioId      String
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  items         ShowcaseItemRel[]
+}
+
+model ShowcaseItemRel {
+  id            String            @id @default(cuid())
+
+  showcase      ShowcaseInternal  @relation(fields: [showcaseId], references: [id])
+  showcaseId    String
+
+  attraction    Attraction        @relation(fields: [attractionId], references: [id])
+  attractionId  String
+
+  order         Int               // display order within this internal showcase
+}
+
+
+/// 11. Studio
+model Studio {
+  id              String             @id @default(cuid())
+  credentialId    String             @unique
+  name            String             @unique   // e.g. “John Doe Studio”
+  slug            String             @unique   // e.g. “john-doe-studio”
+  description     String?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  // Relation: which User (Credential) owns this Studio?
+  credential      User               @relation(fields: [credentialId], references: [id])
+
+  // All content scoped to this Studio:
+  showcases       ShowcaseInternal[] 
+  externalContent ExternalContent[]  
+
+  // If you want to allow Users to manage this Studio in addition to the owning user:
+  // managers        User[]           @relation("UserStudios")
+}
+
+
+/// 12. ExternalContent
+/// Third‐party embeds (YouTube, TikTok, Instagram, etc.) that a Studio owner “imports.”
+model ExternalContent {
+  id            String      @id @default(cuid())
+  studioId      String
+  provider      Provider
+  providerId    String      @unique    // e.g. YouTube ID “dQw4w9WgXcQ”
+  embedUrl      String                   // e.g. “https://www.youtube.com/embed/dQw4w9WgXcQ”
+  title         String?
+  description   String?
+  thumbnailUrl  String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  studio        Studio      @relation(fields: [studioId], references: [id])
+}
