@@ -21,6 +21,7 @@ export const startServer = () => {
           "https://dev.goatnet.io",
           "https://cms.dev.goatnet.io",
           "https://goatnet.io",
+          "https://www.goatnet.io",
           "https://cms.goatnet.io",
         ];
         if (!incomingOrigin || allowed.includes(incomingOrigin)) {
