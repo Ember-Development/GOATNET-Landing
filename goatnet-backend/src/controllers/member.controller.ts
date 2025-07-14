@@ -45,7 +45,7 @@ export const createCredential: RequestHandler = async (req, res) => {
 // PUT /credential/credentials/:id
 export const updateCredential: RequestHandler = async (req, res) => {
   try {
-    const id = Number(req.params.id);
+    const id = req.params.id;
     const { name, link, landingOrder } = req.body;
     let imageUrl: string | undefined = undefined;
 
