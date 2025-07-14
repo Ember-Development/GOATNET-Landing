@@ -49,7 +49,7 @@ export const startServer = () => {
   });
 
   // Static file serving
-  const realUploads = path.join(__dirname, "../../uploads");
+  const realUploads = path.join(__dirname, "../../../uploads");
   console.log("→ [DEBUG] Serving static files from:", realUploads);
   app.use("/uploads", express.static(realUploads));
 
