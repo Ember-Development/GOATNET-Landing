@@ -55,7 +55,7 @@ export const credentialService = {
   },
 
   updateLandingCredential: async (args: {
-    id: number;
+    id: string;
     name: string;
     link?: string;
     imageUrl?: string;
