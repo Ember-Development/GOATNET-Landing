@@ -49,7 +49,7 @@ export const startServer = () => {
   });
 
   // Static file serving
-  app.use("/uploads", express.static(path.join(__dirname, "../../uploads")));
+  app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
   // Main API router
   app.use("/api", router);
