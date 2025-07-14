@@ -55,6 +55,9 @@ const handleImageUpload: RequestHandler = (req, res) => {
     res.status(400).json({ error: "No image uploaded or wrong file type." });
     return;
   }
+
+  console.log("→ [UPLOAD SAVED]", req.file.path);
+
   const url = `/uploads/${req.file.filename}`;
   res.json({ url });
 };
