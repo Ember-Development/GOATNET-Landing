@@ -11,6 +11,7 @@
     "seed": "ts-node prisma/seed.ts",
     "postinstall": "npx prisma generate && npm run build",
     "build": "npx tsc -p ./tsconfig.json",
+    "postbuild": "mkdir -p dist/uploads && cp -R uploads/* dist/uploads/ || true",
     "start": "node dist/src/index.js"
   },
   "keywords": [],
