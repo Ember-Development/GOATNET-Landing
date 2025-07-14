@@ -50,6 +50,7 @@ export const updateCredential: RequestHandler = async (req, res) => {
     let imageUrl: string | undefined = undefined;
 
     if (req.file) {
+      console.log("→ [UPDATE-MULTER SAVED]", req.file.path);
       imageUrl = `/uploads/${req.file.filename}`;
     } else if (req.body.imageUrl) {
       imageUrl = req.body.imageUrl;
@@ -77,7 +78,7 @@ export const updateCredential: RequestHandler = async (req, res) => {
 // DELETE /credential/credentials/:id
 export const deleteCredential: RequestHandler = async (req, res) => {
   try {
-    const id = Number(req.params.id);
+    const id = req.params.id;
     await credentialService.deleteLandingCredential(id);
     res.json({ success: true });
   } catch (err: any) {

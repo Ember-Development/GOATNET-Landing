@@ -81,7 +81,7 @@ export const credentialService = {
     });
   },
 
-  deleteLandingCredential: async (id: number) => {
+  deleteLandingCredential: async (id: string) => {
     // We’ll simply delete the user record entirely. If you prefer to only toggle
     return prisma.user.delete({ where: { id: String(id) } });
   },
